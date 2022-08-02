@@ -54,20 +54,20 @@ const User = db.define('user', {
     }
   },
   shoppingCart: {
-    type: Sequelize.ARRAY,
+    type: Sequelize.ARRAY(Sequelize.STRING),
   },
-  sellerRating: {
-    type: Sequelize.NUMBER,
-  },
-  favoritedItems: {
-    type: Sequelize.ARRAY,
-  },
-  wishList: {
-    type: Sequelize.ARRAY,
-  },
-  history: {
-    type: Sequelize.ARRAY,
-  },
+  // sellerRating: {
+  //   type: Sequelize.NUMBER,
+  // },
+  // favoritedItems: {
+  //   type: Sequelize.ARRAY,
+  // },
+  // wishList: {
+  //   type: Sequelize.ARRAY,
+  // },
+  // history: {
+  //   type: Sequelize.ARRAY,
+  // },
   ccName: {    
     type: Sequelize.STRING,
     allowNull: false,
