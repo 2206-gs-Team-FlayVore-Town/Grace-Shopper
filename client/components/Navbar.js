@@ -3,9 +3,14 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
+import AddToCart from './AddToCart'
+import Cart from './Cart'
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1>FS-App-Template</h1>
+    <AddToCart />
+    <Cart />
     <nav>
       {isLoggedIn ? (
         <div>
