@@ -19,3 +19,141 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.container {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 110px;
+
+  position: relative;
+  width: 1062px;
+  height: 640px;
+
+  background: #ffffff;
+  border: 1px dashed #1d4ed8;
+  border-radius: 0px;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+
+  width: 842px;
+  height: 543px;
+
+  border-radius: 0px;
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.item-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  width: 405px;
+  height: 543px;
+
+  border-radius: 0px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.item-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 32px;
+
+  width: 405px;
+  height: 543px;
+
+  border-radius: 0px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+
+.header {
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 12px;
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.selected {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 4px;
+
+  border: 1px solid #2563eb;
+  border-radius: 0px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.others {
+  flex: none;
+  order: 3;
+  align-self: stretch;
+  flex-grow: 0;
+}
