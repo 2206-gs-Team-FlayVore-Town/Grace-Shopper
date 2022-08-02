@@ -2,18 +2,102 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
-  username: {
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true,
+    }
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
   },
   password: {
     type: Sequelize.STRING,
+  },
+  addressStreet: {
+    type: Sequelize.STRING,
+  },
+  addressCity: {
+    type: Sequelize.STRING,
+  },
+  addressState: {
+    type: Sequelize.STRING,
+  },
+  addressCountry: {
+    type: Sequelize.STRING,
+  },
+  addressZip: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5]
+    }
+  },
+  shoppingCart: {
+    type: Sequelize.ARRAY,
+  },
+  sellerRating: {
+    type: Sequelize.NUMBER,
+  },
+  favoritedItems: {
+    type: Sequelize.ARRAY,
+  },
+  wishList: {
+    type: Sequelize.ARRAY,
+  },
+  history: {
+    type: Sequelize.ARRAY,
+  },
+  ccName: {    
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+  ccNumber: {
+    type: Sequelize.NUMBER,
+    validate: {
+      isCreditCard: true,
+    }
+  },
+  ccSecurityCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [3,4],
+    }
+  },
+  ccExpiryMonth: {
+    type: Sequelize.INTEGER,
+  },
+  ccExpiryYear: {
+    type: Sequelize.INTEGER,
+  },
+  ccPostalCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5]
+    }
   }
 })
 
