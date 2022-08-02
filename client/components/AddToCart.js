@@ -14,8 +14,6 @@ const mapState = state => {
   }
 }
 
-
-
 const mapDispatch = dispatch => {
   return {
     addItem: (item,user) => dispatch(addingToCart(item,user))

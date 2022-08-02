@@ -25,7 +25,7 @@ export const addingToCart = (item,user) => async dispatch => {
  * REDUCER
  */
  
-const initialState = []
+const initialState = [] 
  
 export default function(state = initialState, action) {
   switch (action.type) {
