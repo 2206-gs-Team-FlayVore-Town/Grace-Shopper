@@ -5,12 +5,14 @@ import {logout} from '../store'
 
 import AddToCart from './AddToCart'
 import Cart from './Cart'
+import EditCart from './EditCart'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1>FS-App-Template</h1>
     <AddToCart />
     <Cart />
+    <EditCart />
     <nav>
       {isLoggedIn ? (
         <div>
