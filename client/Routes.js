@@ -7,9 +7,7 @@ import { me, gettingCart } from "./store";
 import Details from "./components/Details";
 import CreateUser from "./components/CreateUser";
 
-/**
- * COMPONENT
- */
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
