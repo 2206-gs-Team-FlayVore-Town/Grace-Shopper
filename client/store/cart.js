@@ -31,8 +31,7 @@ export const addingToCart = (item,user) => async dispatch => {
       })
     }
     else{
-      console.log(item)
-      res = await axios.get(`/api/product/${item}`) //Use item of id to add to cart if not logged in. Doesnt change database
+      res = await axios.get(`/api/products/${item}`) //Use item of id to add to cart if not logged in. Doesnt change database
     }
     return dispatch(addToCart(res.data))
 }
