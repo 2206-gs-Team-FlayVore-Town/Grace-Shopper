@@ -50,8 +50,8 @@ const User = db.define("user", {
   addressZip: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [5],
-    },
+      len: [5]
+    }
   },
   // shoppingCart: {
   //   type: Sequelize.ARRAY,
@@ -68,38 +68,38 @@ const User = db.define("user", {
   // history: {
   //   type: Sequelize.ARRAY,
   // },
-  // ccName: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  //   validate: {
-  //     notEmpty: true,
-  //   },
-  // },
+  ccName: {    
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
   // ccNumber: {
   //   type: Sequelize.NUMBER,
   //   validate: {
   //     isCreditCard: true,
-  //   },
+  //   }
   // },
-  // ccSecurityCode: {
-  //   type: Sequelize.INTEGER,
-  //   validate: {
-  //     len: [3, 4],
-  //   },
-  // },
-  // ccExpiryMonth: {
-  //   type: Sequelize.INTEGER,
-  // },
-  // ccExpiryYear: {
-  //   type: Sequelize.INTEGER,
-  // },
-  // ccPostalCode: {
-  //   type: Sequelize.INTEGER,
-  //   validate: {
-  //     len: [5],
-  //   },
-  // },
-});
+  ccSecurityCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [3,4],
+    }
+  },
+  ccExpiryMonth: {
+    type: Sequelize.INTEGER,
+  },
+  ccExpiryYear: {
+    type: Sequelize.INTEGER,
+  },
+  ccPostalCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5]
+    }
+  }
+})
 
 module.exports = User;
 
