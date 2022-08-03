@@ -55,13 +55,13 @@ const User = db.define("user", {
     }
   },
   sellerRating: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   ccName: {
     type: Sequelize.STRING,
   },
   ccNumber: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
     validate: {
       isCreditCard: true,
     },

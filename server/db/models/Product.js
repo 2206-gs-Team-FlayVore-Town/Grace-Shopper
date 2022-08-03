@@ -13,16 +13,16 @@ const Product = db.define('product', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   quantityPerItem: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   specifications: {
     type: Sequelize.TEXT,
   },
   rating: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   company: {
     type: Sequelize.STRING,
