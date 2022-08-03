@@ -29,9 +29,10 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     let cart = user.shoppingCart
-    let removedProductCart = cart.filter(product => product.productId !== req.body)
-    await user.update({shoppingCart: removedProductCart})
+    let removedProductCart = cart.filter(product => product.productId === req.body)
+    res.send(removedProductCart)
   } catch (err) {
     next(err)
   }
 })
+

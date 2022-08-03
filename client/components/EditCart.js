@@ -1,6 +1,6 @@
 import React from "react";
-// import {connect} from 'react-redux'
-// import {addingToCart} from '../store'
+import {connect} from 'react-redux'
+import {changingProductQuantity, removingFromCart} from '../store'
 
 const EditCart = (props) => {
   return (
@@ -15,30 +15,30 @@ const EditCart = (props) => {
       </div>
       <h4>Apple Iphone 4</h4>
       <h4>Price:$23.00</h4>
-      <select>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+      <select onChange ={() => props.updateCart(props.product, event.target.value, props.user)}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
       </select>
-      <button>Delete</button>
+      <button onClick={() => props.removeItem(props.product, props.user)}>Delete</button>
     </div>
   );
 };
 
-// const mapState = state => {
-//   return {
-//     user: state.user
-//   }
-// }
+const mapState = state => {
+  return {
+    user: state.user
+  }
+}
 
-// const mapDispatch = dispatch => {
-//   return {
-//     addItem: (item,user) => dispatch(addingToCart(item,user))
-//   }
-// }
+const mapDispatch = dispatch => {
+  return {
+    removeItem: (item,user) => dispatch(removingFromCart(item,user)),
+    updateCart: (item,itemQuantity,user) => dispatch(changingProductQuantity(item,itemQuantity,user))
+  }
+}
 
-// export default connect(mapState, mapDispatch)(AddToCart)
-export default EditCart;
+export default connect(mapState, mapDispatch)(EditCart)
 
 // {
 //   props.cart.map((item) => {
