@@ -14,22 +14,22 @@ const Product = db.define('product', {
     allowNull: false,
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
   },
   quantityPerItem: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
   },
   specifications: {
     type: Sequelize.TEXT,
   },
   rating: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
   },
   company: {
     type: Sequelize.STRING,
   },
   stock: {
-    type: sequelize.INTEGER,
+    type: Sequelize.INTEGER,
   },
   tags: {
     type: Sequelize.ARRAY,
