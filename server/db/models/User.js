@@ -84,6 +84,36 @@ const User = db.define("user", {
       len: [5],
     },
   },
+  sellerRating: {
+    type: Sequelize.FLOAT,
+  },
+  ccName: {
+    type: Sequelize.STRING,
+  },
+  ccNumber: {
+    type: Sequelize.FLOAT,
+    validate: {
+      isCreditCard: true,
+    },
+  },
+  ccSecurityCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [3, 4],
+    },
+  },
+  ccExpiryMonth: {
+    type: Sequelize.INTEGER,
+  },
+  ccExpiryYear: {
+    type: Sequelize.INTEGER,
+  },
+  ccPostalCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5],
+    },
+  },
 });
 
 module.exports = User;
