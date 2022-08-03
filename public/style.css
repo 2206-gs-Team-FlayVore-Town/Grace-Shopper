@@ -222,3 +222,70 @@ form div {
   align-self: stretch;
   flex-grow: 0;
 }
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-content: left;
+  align-items: left;
+}
+
+.search-bar {
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-content: left;
+  align-items: left;
+}
+
+.search-bar {
+  width: 80%;
+  margin: 1em;
+}
+
+.store-name {
+  margin: 1em;
+}
+
+.filter-bar {
+  width: 20%;
+  align-content: top;
+}
+
+.products-array {
+  width: 80%;
+}
+
+.all-product-view-thumbnail {
+  width: 90%;
+  margin: 3%;
+}
+
+.align-left {
+  align-self: left;
+}
+
+.align-right {
+  align-self: right;
+}

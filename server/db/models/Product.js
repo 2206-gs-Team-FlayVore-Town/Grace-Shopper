@@ -10,20 +10,19 @@ const Product = db.define('product', {
     }
   },
   imgURL: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
   },
   quantityPerItem: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
   },
   specifications: {
     type: Sequelize.TEXT,
   },
   rating: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
   },
   company: {
     type: Sequelize.STRING,
@@ -31,9 +30,6 @@ const Product = db.define('product', {
   stock: {
     type: Sequelize.INTEGER,
   },
-  tags: {
-    type: Sequelize.ARRAY,
-  }
 })
 
 module.exports = Product

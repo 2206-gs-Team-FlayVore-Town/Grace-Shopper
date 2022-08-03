@@ -6,10 +6,10 @@ const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 5;
 
 const User = db.define("user", {
-  // admin: {
-  //   type: Sequelize.BOOLEAN,
-  //   defaultValue: false,
-  // },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -34,6 +34,7 @@ const User = db.define("user", {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false
   },
   addressStreet: {
     type: Sequelize.STRING,
@@ -50,55 +51,69 @@ const User = db.define("user", {
   addressZip: {
     type: Sequelize.INTEGER,
     validate: {
+      len: [5]
+    }
+  },
+  sellerRating: {
+    type: Sequelize.FLOAT,
+  },
+  ccName: {
+    type: Sequelize.STRING,
+  },
+  ccNumber: {
+    type: Sequelize.FLOAT,
+    validate: {
+      isCreditCard: true,
+    },
+  },
+  ccSecurityCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [3, 4],
+    },
+  },
+  ccExpiryMonth: {
+    type: Sequelize.INTEGER,
+  },
+  ccExpiryYear: {
+    type: Sequelize.INTEGER,
+  },
+  ccPostalCode: {
+    type: Sequelize.INTEGER,
+    validate: {
       len: [5],
     },
   },
-  // shoppingCart: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // sellerRating: {
-  //   type: Sequelize.NUMBER,
-  // },
-  // favoritedItems: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // wishList: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // history: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // ccName: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  //   validate: {
-  //     notEmpty: true,
-  //   },
-  // },
-  // ccNumber: {
-  //   type: Sequelize.NUMBER,
-  //   validate: {
-  //     isCreditCard: true,
-  //   },
-  // },
-  // ccSecurityCode: {
-  //   type: Sequelize.INTEGER,
-  //   validate: {
-  //     len: [3, 4],
-  //   },
-  // },
-  // ccExpiryMonth: {
-  //   type: Sequelize.INTEGER,
-  // },
-  // ccExpiryYear: {
-  //   type: Sequelize.INTEGER,
-  // },
-  // ccPostalCode: {
-  //   type: Sequelize.INTEGER,
-  //   validate: {
-  //     len: [5],
-  //   },
-  // },
+  sellerRating: {
+    type: Sequelize.FLOAT,
+  },
+  ccName: {
+    type: Sequelize.STRING,
+  },
+  ccNumber: {
+    type: Sequelize.FLOAT,
+    validate: {
+      isCreditCard: true,
+    },
+  },
+  ccSecurityCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [3, 4],
+    },
+  },
+  ccExpiryMonth: {
+    type: Sequelize.INTEGER,
+  },
+  ccExpiryYear: {
+    type: Sequelize.INTEGER,
+  },
+  ccPostalCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5],
+    },
+  },
 });
 
 module.exports = User;
