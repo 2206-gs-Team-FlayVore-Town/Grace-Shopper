@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import countries from "i18n-iso-countries";
-import enLocale from "i18n-iso-countries/langs/en.json";
 
 import {
   Typography,
@@ -10,8 +8,6 @@ import {
   CssBaseline,
   createTheme,
   Container,
-  Card,
-  CardContent,
   Grid,
   TextField,
   Button,
@@ -21,19 +17,11 @@ import {
 
 const theme = createTheme();
 
-countries.registerLocale(enLocale);
-
-const countryObj = countries.getNames("en", { select: "official" });
-
-const countryArr = Object.entries(countryObj).map(([key, value]) => {
-  return { label: value, value: key };
-});
-
 export default function NewUserForm(props) {
   const {
-    handleSubmit,
+    // handleSubmit,
+    handleNewUser,
     handleChange,
-    selectCountry,
     firstName,
     lastName,
     email,
@@ -62,7 +50,7 @@ export default function NewUserForm(props) {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleNewUser}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -161,27 +149,16 @@ export default function NewUserForm(props) {
               </Grid>
 
               <Grid item xs={12}>
-                {/* <TextField
+                <TextField
                   required
                   fullWidth
+                  variant="standard"
                   id="addressCountry"
                   label="Country"
                   name="addressCountry"
                   value={addressCountry}
-                  onChange={selectCountry}
-                /> */}
-                <Select
-                  fullWidth
-                  value={addressCountry}
-                  onChange={selectCountry}
-                >
-                  {!!countryArr?.length &&
-                    countryArr.map(({ label, value }) => (
-                      <MenuItem key={value} value={value}>
-                        {label}
-                      </MenuItem>
-                    ))}
-                </Select>
+                  onChange={handleChange}
+                />
               </Grid>
             </Grid>
 

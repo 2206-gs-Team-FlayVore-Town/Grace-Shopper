@@ -9,9 +9,27 @@ export const _createUser = (user) => {
   };
 };
 
-export const createUser = (user, history) => {
+export const createUser = (
+  firstName,
+  lastName,
+  email,
+  password,
+  addressCity,
+  addressStreet,
+  addressCountry,
+  addressZip
+) => {
   return async (dispatch) => {
-    const { data: created } = await axios.post("/auth/signup", user);
+    const { data: created } = await axios.post("/auth/signup", {
+      firstName,
+      lastName,
+      email,
+      password,
+      addressCity,
+      addressStreet,
+      addressCountry,
+      addressZip,
+    });
     dispatch(_createUser(created));
   };
 };
@@ -21,7 +39,7 @@ const initialState = {};
 export default function (state = initialState, action) {
   switch (action.type) {
     case CREATE_USER:
-      return { ...action.user };
+      return action.user;
     default:
       return state;
   }

@@ -20,7 +20,6 @@ class CreateUser extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.selectCountry = this.selectCountry.bind(this);
   }
 
   componentDidMount() {
@@ -37,12 +36,6 @@ class CreateUser extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  }
-
-  selectCountry(value) {
-    if (value) {
-      this.setState({ addressCountry: value });
-    }
   }
 
   async handleSubmit(e) {
@@ -74,14 +67,13 @@ class CreateUser extends Component {
       addressCountry,
       addressZip,
     } = this.state;
-    const { handleSubmit, handleChange, selectCountry } = this;
+    const { handleSubmit, handleChange, handleNewUser } = this;
 
     return (
       <div>
         <NewUserForm
-          handleSubmit={handleSubmit}
+          handleNewUser={handleNewUser}
           handleChange={handleChange}
-          selectCountry={selectCountry}
           firstName={firstName}
           lastName={lastName}
           password={password}
@@ -96,8 +88,32 @@ class CreateUser extends Component {
   }
 }
 
-const mapDispatch = (dispatch, { history }) => ({
-  createUser: (user) => dispatch(createUser(user, history)),
-});
+const mapDispatch = (dispatch, { history }) => {
+  return {
+    handleNewUser(e) {
+      e.preventDefault();
+      const firstName = e.target.firstName.value;
+      const lastName = e.target.lastName.value;
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const addressStreet = e.target.addressStreet.value;
+      const addressCity = e.target.addressCity.value;
+      const addressCountry = e.target.addressCountry.value;
+      const addressZip = e.target.addressZip.value;
+      dispatch(
+        createUser(
+          firstName,
+          lastName,
+          email,
+          password,
+          addressCity,
+          addressStreet,
+          addressCountry,
+          addressZip
+        )
+      );
+    },
+  };
+};
 
 export default connect(null, mapDispatch)(CreateUser);
