@@ -10,8 +10,7 @@ const Product = db.define('product', {
     }
   },
   imgURL: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   price: {
     type: Sequelize.NUMBER,
@@ -29,11 +28,8 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
   },
   stock: {
-    type: sequelize.INTEGER,
+    type: Sequelize.INTEGER,
   },
-  tags: {
-    type: Sequelize.ARRAY,
-  }
 })
 
 module.exports = Product
