@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 import { logout } from "../store";
-import AddToCart from "./AddToCart";
 import { Login, Signup } from "./AuthForm";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
@@ -20,6 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/history">Orders/History</Link>
               <Link to="/account">Account</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
+              <Link to="/">Home</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -30,13 +30,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
+              <Link to="/">Home</Link>
             </div>
           )}
         </div>
       </div>
       <div>
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />        
+        <Route path="/signup" component={Signup} />
       </div>
       <div className="row">
         <Link to="/all">All</Link>

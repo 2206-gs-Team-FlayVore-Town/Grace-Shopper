@@ -21,12 +21,14 @@ async function seed() {
   ]);
   
   const products = await Promise.all([
-    Product.create({ name: "figurine" })
+    Product.create({ name: "figurine", price: 500 })
   ]);
   
   const orders = await Promise.all([
     Order.create()
   ]);
+  
+  await orders[0].setUser(users[0])
   
   await orders[0].addProduct(products[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
 

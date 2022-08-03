@@ -1,5 +1,7 @@
 import React from 'react'
 
+import AddToCart from "./AddToCart";
+
 /**
  * COMPONENT
  */
@@ -16,6 +18,7 @@ export const SingleProductInList = props => {
         </div>
         
         <div style={{fontSize: 10}}>Description: words words words words words words words words words words words words words words words </div>
+        <AddToCart />
     </div>
   )
 }
