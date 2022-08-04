@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
-import { me, gettingCart } from "./store";
+import { me, gettingCart, gettingUsers } from "./store";
 import Details from "./components/Details";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
+import Users from "./components/Users"
 
 class Routes extends Component {
   componentDidMount() {
@@ -15,7 +16,10 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    if (this.props.isAdmin){
+      this.props.usersLoader()
+    }
+    const { isLoggedIn, isAdmin } = this.props;
 
     return (
       <div>
@@ -24,6 +28,9 @@ class Routes extends Component {
         </div>
         {isLoggedIn ? (
           <Switch>
+            {isAdmin ? (
+              <Route path="/users" component={Users}/>) : (<span></span>)
+            }
             <Route path="/home" component={Home} />
             <Route path="/shoppingCart" component={Cart} />
             <Route exact path="/products/:id" component={Details} />
@@ -50,6 +57,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.admin
   };
 };
 
@@ -57,6 +65,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData: () => dispatch(me()),
     cartLoader: (user) => dispatch(gettingCart(user)),
+    usersLoader: () => dispatch(gettingUsers())
   };
 };
 

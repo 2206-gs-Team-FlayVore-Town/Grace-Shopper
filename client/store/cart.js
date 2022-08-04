@@ -37,7 +37,6 @@ export const addingToCart = (product,user,quantity) => async dispatch => {
       product, quantity
       })
     }
-    console.log(res.data)
     return dispatch(addToCart(res.data))
 }
 

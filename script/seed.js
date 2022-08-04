@@ -92,23 +92,27 @@ async function seed() {
   const orders = await Promise.all([
     Order.create()
   ]);
+  
+  let product = []
+  
+  let user = []
 
   try {
-    await Promise.all(
+    product = await Promise.all(
       products.map(item => Product.create(item))
       )
-    await Promise.all(
+    user = await Promise.all(
       users.map(user => User.create(user))
       )
   } catch (err) {
     console.log(err);
   }
 
-
-
-  await orders[0].setUser(users[0])
   
-  await orders[0].addProduct(products[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
+
+  await orders[0].setUser(user[0])
+  
+  await orders[0].addProduct(product[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
 
   console.log(`seeded ${users.length} users, ${products.length} products, ${orders.length} orders`);
   console.log(`seeded successfully`);
