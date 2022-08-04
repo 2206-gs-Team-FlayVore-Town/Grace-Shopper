@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate, createUser } from "../store";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
 
 import {
@@ -29,7 +29,14 @@ const theme = createTheme();
  * COMPONENT
  */
 const AuthForm = (props) => {
+  let history = useHistory();
   const { name, displayName, handleSubmit, handleNewUser, error } = props;
+
+  const redirect = () => {
+    setTimeout(() => {
+      history.push("/login");
+    }, 500);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,6 +85,7 @@ const AuthForm = (props) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={redirect}
             >
               {displayName}
             </Button>
@@ -127,9 +135,9 @@ const mapDispatch = (dispatch) => {
     handleSubmit(evt) {
       evt.preventDefault();
       const formName = evt.target.name;
-      const username = evt.target.username.value;
+      const email = evt.target.email.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
+      dispatch(authenticate(email, password, formName));
     },
     handleNewUser(evt) {
       evt.preventDefault();
