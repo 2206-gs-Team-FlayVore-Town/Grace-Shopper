@@ -5,13 +5,13 @@ import {addingToCart} from '../store'
 const AddToCart = props => {
   
   const handleSubmit = () =>{
-    let quantity = document.getElementById(`quantity${props.item}`).value
-    props.addItem(props.item, props.user, quantity) //assuming id of item and user being passed down
+    let quantity = document.getElementById(`quantity${props.product}`).value
+    props.addProduct(props.product, props.user, quantity) //assuming id of product and user being passed down
   }
   
   return (
     <div>
-      <select id={`quantity${props.item}`}>
+      <select id={`quantity${props.product}`}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -35,7 +35,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    addItem: (item,user,quantity) => dispatch(addingToCart(item,user,quantity))
+    addProduct: (product,user,quantity) => dispatch(addingToCart(product,user,quantity))
   }
 }
 

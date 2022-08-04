@@ -5,7 +5,6 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me, gettingCart } from "./store";
 import Details from "./components/Details";
-import CreateUser from "./components/CreateUser";
 
 
 class Routes extends Component {
@@ -28,7 +27,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={CreateUser} />
+            <Route path="/signup" component={Signup} />
             <Route path="/products/:productId" component={Details} />
           </Switch>
         )}

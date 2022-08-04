@@ -4,7 +4,7 @@ const CREATE_USER = "CREATE_USER";
 
 export const _createUser = (user) => {
   return {
-    CREATE_USER,
+    type: CREATE_USER,
     user,
   };
 };
@@ -20,7 +20,7 @@ export const createUser = (
   addressZip
 ) => {
   return async (dispatch) => {
-    const { data: created } = await axios.post("/auth/signup", {
+    const { data } = await axios.post("/auth/signup", {
       firstName,
       lastName,
       email,
@@ -30,7 +30,7 @@ export const createUser = (
       addressCountry,
       addressZip,
     });
-    dispatch(_createUser(created));
+    dispatch(_createUser(data));
   };
 };
 

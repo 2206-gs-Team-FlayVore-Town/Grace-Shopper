@@ -7,8 +7,6 @@ import AddToCart from "./AddToCart";
  */
 export const SingleProductInList = props => {
   const { product } = props;
-  console.log("@@@", product);
-
   return (
     <div className="column">
         <img className="all-product-view-thumbnail" src="https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg"/>
@@ -19,7 +17,7 @@ export const SingleProductInList = props => {
         </div>
         
         <div style={{fontSize: 10}}> {product.specifications} </div>
-        <AddToCart />
+        <AddToCart product={product.id}/>
     </div>
   )
 }

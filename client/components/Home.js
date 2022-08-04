@@ -14,7 +14,6 @@ export class Home extends React.Component {
   
   render() {
     const { products } = this.props;
-    console.log("!!!", products)
     products.shift();
     const topItems = products.splice(0,4);
     const row2 = products.splice(0,5);
@@ -53,7 +52,7 @@ export class Home extends React.Component {
 
 const mapState = (state) => {
   return {
-    username: state.auth.username,
+    firstName: state.auth.firstName,
     products: state.multipleProducts,
   };
 };
