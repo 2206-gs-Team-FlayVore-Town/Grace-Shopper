@@ -45,7 +45,11 @@ async function seed() {
     }
     users.push(newUser);
   }
-
+  users.push({firstName: `admin`,
+      lastName: `1`,
+      admin: true,
+      email: `admin@email.com`,
+      password: `admin`,})
 
   const products=[]
   let name1 = ["Human", "Orc", "Elven", "Kittenfolk", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];
@@ -107,8 +111,6 @@ async function seed() {
   } catch (err) {
     console.log(err);
   }
-
-  
 
   await orders[0].setUser(user[0])
   

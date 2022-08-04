@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const TOKEN = "token";
+
 /**
  * ACTION TYPES
  */
@@ -14,8 +16,15 @@ const getUsers = (users) => ({type: GET_USERS, users})
  * THUNK CREATORS
  */
 export const gettingUsers = () => async dispatch => {
-    const res = await axios.get(`/api/users`) 
-    return dispatch(getUsers(res.data))
+  const token = window.localStorage.getItem(TOKEN);
+  if (token) {
+    const res = await axios.get("/api/users", {
+      headers: {
+        authorization: token,
+      },
+    });
+    return dispatch(getUsers(res.data));
+  }
 }
  
 

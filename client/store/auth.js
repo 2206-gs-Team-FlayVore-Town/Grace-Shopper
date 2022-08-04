@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { gettingUsers } from "./users"
 
 const TOKEN = "token";
 
@@ -33,6 +34,7 @@ export const authenticate = (email, password, method) => async (dispatch) => {
     const res = await axios.post(`/auth/${method}`, { email, password });
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
+    dispatch(gettingUsers())
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }

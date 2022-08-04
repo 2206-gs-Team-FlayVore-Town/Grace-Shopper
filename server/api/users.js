@@ -6,8 +6,14 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const users = await User.findAll();
-    res.json(users);
+    const user = await User.findByToken(req.headers.authorization)
+    if (user.admin){
+      const users = await User.findAll();
+      res.json(users);
+    }
+    else{
+      res.send({})
+    }
   } catch (err) {
     next(err);
   }
