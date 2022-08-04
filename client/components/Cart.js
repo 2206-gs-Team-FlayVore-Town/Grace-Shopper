@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import EditCart from './EditCart'
 
 const Cart = props => {
   return (
     <ul>
-        {props.cart.map((item, index) => {
-            return <li key = {index}>{item}</li> //change to item.name and quantity or something later. Maybe need to reduce the cart?
-        })}
+      <EditCart cart={props.cart}/>
+        {/* {props.cart.map((item, index) => {
+            return <li key = {index}>{item.name}</li>
+        })} */}
     </ul>
   )
 }

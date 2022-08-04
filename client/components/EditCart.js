@@ -3,9 +3,13 @@ import {connect} from 'react-redux'
 import {changingProductQuantity, removingFromCart} from '../store'
 
 const EditCart = (props) => {
+  let {cart, removeItem, updateCart, user} = props
+  function subtotal() {
+    
+  }
   return (
     <div>
-      <h3>Cart Subtotal (1 item): $23.00</h3>
+      <h3>Cart Subtotal ({cart.length} {cart.length === 1 ? "item" : "items"}): $23.00</h3>
       <button> Proceed to Checkout</button>
       <div>
         <img

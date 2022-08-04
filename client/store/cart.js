@@ -27,15 +27,17 @@ export const gettingCart = (user) => async dispatch => {
     }
 }
  
-export const addingToCart = (item,user) => async dispatch => {
+export const addingToCart = (item,user,quantity) => async dispatch => {
     let res = ''
     if (user){
-      res = await axios.put(`/api/cart/${user}`, { //Send Id of item to that user
-        item
+      res = await axios.put(`/api/cart/${user}`, { //Create an order for that item attached to that user
+        item, quantity
       })
     }
     else{
-      res = await axios.get(`/api/products/${item}`) //Use item of id to add to cart if not logged in. Doesnt change database
+      res = await axios.put(`/api/cart/-1`, { //Only attaches order to user if user is logged in
+      item, quantity
+      })
     }
     return dispatch(addToCart(res.data))
 }

@@ -21,6 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/history">Orders/History</Link>
               <Link to="/account">Account</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
+              <Link to="/">Home</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -31,6 +32,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
+              <Link to="/">Home</Link>
             </div>
           )}
         </div>
@@ -38,7 +40,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <div>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />   
-        <Route path="/shoppingCart" component={EditCart} />   
       </div>
       <div className="row">
         <Link to="/all">All</Link>

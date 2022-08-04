@@ -21,12 +21,37 @@ async function seed() {
   ]);
   
   const products = await Promise.all([
-    Product.create({ name: "figurine" })
+    Product.create({ name: "figurine", price: 500 })
   ]);
+
+  const minis=[]
+  let name1 = ["Human", "Orc", "Elven", "Catperson", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];
+  let name2 = ["Fighter", "Paladin", "Knight", "Monk", "Barbarian", "Wizard", "Sorceror", "Cleric", "Druid", "Warlock"]
+  let company = ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
+  for (let i = 0; i < 50; i++) {
+    let rand1 = Math.floor(Math.random()*12);
+    let rand2 = Math.floor(Math.random()*10);
+    let rand3 = Math.floor(Math.random()*6);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    const newMini = { 
+      name: `${name1[rand1]} ${name2[rand2]}`, 
+      price: rand4 * 100, 
+      quantityPerItem: 1, 
+      specifications: `This is a ${name1[rand1]} ${name2[rand2]} made by ${company[rand3]}. Neat!`, 
+      rating: rand5,
+      company: company[rand3],
+      stock: rand1 + rand2
+    }
+    minis.push(newMini);
+  }
+  minis.map(mini => Product.create(mini))
   
   const orders = await Promise.all([
     Order.create()
   ]);
+
+  await orders[0].setUser(users[0])
   
   await orders[0].addProduct(products[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
 
