@@ -10,7 +10,7 @@ class Details extends Component {
   }
 
   render() {
-    const { name, imgURL, price, specifications, company, rating, stock } =
+    const { name, imgURL, price, specifications, company, rating, stock, id } =
       this.props.selectedProduct;
 
     return (
@@ -29,7 +29,7 @@ class Details extends Component {
             </div>
             <div className="rating">Rating: {rating}</div>
             <div className="button-container">
-              <AddToCart />
+              <AddToCart product={id} />
               {/* <button className="choice-button">Add to Cart</button> */}
               <button className="wishlist">Add to Wishlist</button>
             </div>
