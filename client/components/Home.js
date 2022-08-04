@@ -15,9 +15,9 @@ export class Home extends React.Component {
   render() {
     const { products } = this.props;
     const topItems = products.splice(0,4);
-    const row2 = products.splice(0,5);
-    const row3 = products.splice(0,5);
-    const row4 = products.splice(0,5);
+    // const row2 = products.splice(0,5);
+    // const row3 = products.splice(0,5);
+    // const row4 = products.splice(0,5);
 
     return (
       <div className="row">
@@ -28,12 +28,12 @@ export class Home extends React.Component {
               return (<SingleProductInList product={product} key={product.id}/>)
             })}
           </div>
-          <div className="row">
-          {row2.map((product)=> {
+          <div className="all-product-page">
+          {products.map((product)=> {
               return (<SingleProductInList product={product} key={product.id}/>)
             })}
           </div>
-          <div className="row">
+          {/* <div className="row">
           {row3.map((product)=> {
               return (<SingleProductInList product={product} key={product.id}/>)
             })}
@@ -42,7 +42,7 @@ export class Home extends React.Component {
           {row4.map((product)=> {
               return (<SingleProductInList product={product} key={product.id}/>)
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     );

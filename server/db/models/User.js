@@ -34,7 +34,7 @@ const User = db.define("user", {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   addressStreet: {
     type: Sequelize.STRING,
@@ -51,50 +51,17 @@ const User = db.define("user", {
   addressZip: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [5]
-    }
-  },
-  sellerRating: {
-    type: Sequelize.FLOAT,
-  },
-  ccName: {
-    type: Sequelize.STRING,
-  },
-  ccNumber: {
-    type: Sequelize.FLOAT,
-    validate: {
-      isCreditCard: true,
-    },
-  },
-  ccSecurityCode: {
-    type: Sequelize.INTEGER,
-    validate: {
-      len: [3, 4],
-    },
-  },
-  ccExpiryMonth: {
-    type: Sequelize.INTEGER,
-  },
-  ccExpiryYear: {
-    type: Sequelize.INTEGER,
-  },
-  ccPostalCode: {
-    type: Sequelize.INTEGER,
-    validate: {
       len: [5],
     },
   },
   sellerRating: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
   },
   ccName: {
     type: Sequelize.STRING,
   },
   ccNumber: {
     type: Sequelize.FLOAT,
-    validate: {
-      isCreditCard: true,
-    },
   },
   ccSecurityCode: {
     type: Sequelize.INTEGER,

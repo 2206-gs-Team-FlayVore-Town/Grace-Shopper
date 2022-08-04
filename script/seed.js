@@ -14,17 +14,44 @@ async function seed() {
   console.log("db synced!");
   console.log(User, Product, Order)
 
-  // Creating Users
-  const users = await Promise.all([
-    User.create({ firstName: "cody", lastName: "Zotaniferd", password: "123", email: "cody@email.com" }),
-    User.create({ firstName: "murphy", lastName: "Chablancy", password: "123", email: "murphy@email.com"}),
-  ]);
-  
+  const users = []
+  let first = ["Jimothy", "Bobert", "Billiam", "Humphrey", "Timbo", "Clintus", "Cleaton", "Danuel", "Georbert", "Tedrick", "Bamantha", "Stepherly", "Hannie", "Savannabelle", "Bethalina", "Charlia", "Layzel", "Sophelope", "Lemma", "Larper"]
+  let last = ["Hawkins", "Strickland", "Romero", "Austin", "Thomas", "Love", "Taylor", "Mejia", "Palmer", "Alexander", "Jimenez", "Mann", "Wise", "Watson", "Osborne", "Thornton", "Gardner", "Khan", "Joyce", "Fuller", "Reed", "Kaye", "Reynolds", "Rossi", "Black"]
+  for (let i = 0; i < 200; i++) {
+    let rand1 = Math.floor(Math.random()*20);
+    let rand2 = Math.floor(Math.random()*25);
+    let rand3 = (rand1 % 10 === 0);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    let rand6 = Math.floor(Math.random()*12);
+    const newUser = { 
+      firstName: `${first[rand1]}`,
+      lastName: `${last[rand2]}`,
+      admin: rand3,
+      email: `${first[rand1]}${last[rand2]}${100-rand5}@Testmail.com`,
+      password: `password${100-rand5}`,
+      addressStreet: `${rand5} ${last[rand2]} St.`,
+      addressCity: `${last[rand2]}ville`,
+      addressState: "Georgia",
+      addressCountry: "United States",
+      addressZip: 23300 + rand4,
+      sellerRating: rand5,
+      ccName: `${first[rand1]} ${last[rand2]}`,
+      ccNumber: 4000111122220000+rand5,
+      ccSecurityCode: 100 + rand5,
+      ccExpiryMonth: rand6,
+      ccExpiryYear: 20 + rand6,
+      ccPostalCode: 23300 + rand4,
+    }
+    users.push(newUser);
+  }
+
+
   const products=[]
-  let name1 = ["Human", "Orc", "Elven", "Catperson", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];
+  let name1 = ["Human", "Orc", "Elven", "Kittenfolk", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];
   let name2 = ["Fighter", "Paladin", "Knight", "Monk", "Barbarian", "Wizard", "Sorceror", "Cleric", "Druid", "Warlock"]
   let company = ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     let rand1 = Math.floor(Math.random()*12);
     let rand2 = Math.floor(Math.random()*10);
     let rand3 = Math.floor(Math.random()*6);
@@ -44,7 +71,7 @@ async function seed() {
   }
 
   let creature = ["Lion", "Tiger", "Bear", "Dog", "Cat", "Dragon", "Gorilla", "Slime Monster", "Ooze Monster", "Werewolf", "Owlbear", "Hellhound", "Beholder", "Demogorgon", "Aboleth", "Kraken", "Giant Rat", "Giant Centipede", "Elemental", "Raptor"];
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     let rand1 = Math.floor(Math.random()*20);
     let rand3 = Math.floor(Math.random()*6);
     let rand4 = Math.floor(Math.random()*25);
@@ -52,7 +79,7 @@ async function seed() {
     const newMini = { 
       name: `${creature[rand1]}`, 
       price: rand1  + rand3 + rand4 + rand5,
-      imgUrl: "https://i.etsystatic.com/9213904/r/il/3ae16d/3502796087/il_1588xN.3502796087_pwb1.jpg",
+      imgURL: "https://www.furryandthebeast.com/wp-content/uploads/howler-large-dnd-monster.jpg",
       quantityPerItem: 1, 
       specifications: `This is a ${creature[rand1]} made by ${company[rand3]}. Neat!`, 
       rating: rand5,
@@ -62,12 +89,22 @@ async function seed() {
     products.push(newMini);
   }
 
-
-  products.map(item => Product.create(item))
-  
   const orders = await Promise.all([
     Order.create()
   ]);
+
+  try {
+    await Promise.all(
+      products.map(item => Product.create(item))
+      )
+    await Promise.all(
+      users.map(user => User.create(user))
+      )
+  } catch (err) {
+    console.log(err);
+  }
+
+
 
   await orders[0].setUser(users[0])
   
