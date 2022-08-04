@@ -27,12 +27,11 @@ const AuthForm = (props) => {
 
   const redirect = () => {
     setTimeout(() => {
-      history.push("/login");
+      history.push("/");
     }, 500);
   };
 
   return (
-
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

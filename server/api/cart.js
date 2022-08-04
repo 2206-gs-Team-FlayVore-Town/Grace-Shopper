@@ -1,18 +1,22 @@
+
 const router = require('express').Router()
 const { models: { Order, User, Product, OrderProducts }} = require('../db')
 module.exports = router
 
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const cart = await Order.findAll({where: {userId: req.params.id, completed: false}})
-    res.send(cart)
+    const cart = await Order.findAll({
+      where: { userId: req.params.id, completed: false },
+    });
+    res.send(cart);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-router.put('/:id', async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
+
     
     const product = await Product.findByPk(req.body.product)
     const order = await Order.create()
@@ -23,6 +27,6 @@ router.put('/:id', async (req, res, next) => {
     const orderProduct = await order.addProduct(product, {through: {quantity: req.body.quantity, unitPrice: product.price, totalPrice: req.body.quantity * product.price}})
     res.send({product, orderProduct: orderProduct[0]})
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});

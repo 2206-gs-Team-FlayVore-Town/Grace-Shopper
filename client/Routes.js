@@ -5,7 +5,8 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me, gettingCart } from "./store";
 import Details from "./components/Details";
-
+import Cart from "./components/Cart";
+import Navbar from "./components/Navbar";
 
 class Routes extends Component {
   componentDidMount() {
@@ -18,17 +19,22 @@ class Routes extends Component {
 
     return (
       <div>
+        <div>
+          <Navbar />
+        </div>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Redirect to="/home" />
+            <Route path="/shoppingCart" component={Cart} />
+            <Route exact path="/products/:id" component={Details} />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/products/:productId" component={Details} />
+            <Route path="/home" component={Home} />
+            <Route path="/shoppingCart" component={Cart} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/products/:id" component={Details} />
           </Switch>
         )}
       </div>
