@@ -5,7 +5,7 @@ const Cart = props => {
   return (
     <ul>
         {props.cart.map((item, index) => {
-            return <li key = {index}>{item}</li> //change to item.name and quantity or something later. Maybe need to reduce the cart?
+            return <li key = {index}>{item.name}</li>
         })}
     </ul>
   )

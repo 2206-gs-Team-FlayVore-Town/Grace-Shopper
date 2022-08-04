@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_CART = "GET_CART"
-const ADD_TO_CART = "ADD_TOCART"
+const ADD_TO_CART = "ADD_TO_CART"
 
 /**
  * ACTION CREATORS
@@ -18,15 +18,23 @@ const addToCart = (item) => ({type: ADD_TO_CART, item})
  */
 export const gettingCart = (user) => async dispatch => {
     if (user){ //if logged in will have a user id to retreiver the cart
-      const res = await axios.get(`/users/${user.id}/cart`) //find cart of that user
+      const res = await axios.get(`/api/cart/${user.id}`) //find cart of that user
       return dispatch(getCart(res.data))
     }
 }
  
-export const addingToCart = (item,user) => async dispatch => {
-    const res = await axios.post(`/users/${user}/cart`, { //Send Id of item to that user
-      item
-    })
+export const addingToCart = (item,user,quantity) => async dispatch => {
+    let res = ''
+    if (user){
+      res = await axios.put(`/api/cart/${user}`, { //Create an order for that item attached to that user
+        item, quantity
+      })
+    }
+    else{
+      res = await axios.put(`/api/cart/-1`, { //Only attaches order to user if user is logged in
+      item, quantity
+      })
+    }
     return dispatch(addToCart(res.data))
 }
 

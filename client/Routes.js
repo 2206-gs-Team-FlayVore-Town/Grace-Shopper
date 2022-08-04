@@ -6,9 +6,7 @@ import Home from "./components/Home";
 import { me, gettingCart } from "./store";
 import Details from "./components/Details";
 
-/**
- * COMPONENT
- */
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();

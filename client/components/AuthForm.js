@@ -18,13 +18,6 @@ import {
 
 const theme = createTheme();
 
-// handleChange(e) {
-//   e.preventDefault();
-//   this.setState({
-//     [e.target.name]: e.target.value,
-//   });
-// }
-
 /**
  * COMPONENT
  */
@@ -39,6 +32,7 @@ const AuthForm = (props) => {
   };
 
   return (
+
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
