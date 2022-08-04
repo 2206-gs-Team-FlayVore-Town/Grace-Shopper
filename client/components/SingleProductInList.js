@@ -6,7 +6,8 @@ import AddToCart from "./AddToCart";
  * COMPONENT
  */
 export const SingleProductInList = props => {
-  const {username} = props
+  const { product } = props;
+  console.log("@@@", product);
 
   return (
     <div className="column">
