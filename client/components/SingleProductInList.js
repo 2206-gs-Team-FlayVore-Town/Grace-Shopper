@@ -11,10 +11,7 @@ export const SingleProductInList = (props) => {
   return (
     <div className="column">
       <Link to={`/products/${product.id}`}>
-        <img
-          className="all-product-view-thumbnail"
-          src="https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg"
-        />
+        <img className="all-product-view-thumbnail" src={product.imgURL} />
         <div style={{ fontSize: 20 }}>{product.name}</div>
         <div className="row">
           <div style={{ fontSize: 12 }}>
@@ -25,7 +22,6 @@ export const SingleProductInList = (props) => {
           </div>
         </div>
       </Link>
-
       <div style={{ fontSize: 10 }}> {product.specifications} </div>
       <AddToCart product={product.id} />
     </div>
