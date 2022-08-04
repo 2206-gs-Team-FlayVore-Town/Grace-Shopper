@@ -13,14 +13,14 @@ const Cart = (props) => {
     for (let i = 0; i < cart.length; i++) {
       let id = cart[i].product.id;
       if (newCart.hasOwnProperty(id)) {
-        newCart[id].orderProduct.quantity++;
-        newCart[id].orderProduct.totalPrice += cart[i].orderProduct.unitPrice;
-        newCart.total += cart[i].orderProduct.unitPrice;
-        newCart.totalItems++;
+        newCart[id].orderProduct.quantity += cart[i].orderProduct.quantity;
+        newCart[id].orderProduct.totalPrice = newCart[id].orderProduct.quantity * newCart[id].orderProduct.unitPrice;
+        newCart.total += cart[i].orderProduct.totalPrice;
+        newCart.totalItems += cart[i].orderProduct.quantity;
       } else {
         newCart[id] = cart[i];
-        newCart.total += cart[i].orderProduct.unitPrice;
-        newCart.totalItems++;
+        newCart.total += cart[i].orderProduct.totalPrice;
+        newCart.totalItems += cart[i].orderProduct.quantity;
       }
     }
     console.log(newCart);
@@ -39,8 +39,8 @@ const Cart = (props) => {
               className="product-image"
               src="https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg"
             />
-            <h4>{newCart[key].product.name}</h4>
-            <h4>${newCart[key].orderProduct.unitPrice / 100}</h4>
+            <h4>Product Name: {newCart[key].product.name}</h4>
+            <h4>Price Per Unit: ${newCart[key].orderProduct.unitPrice / 100}</h4>
             <select
               onChange={() =>
                 updateCart(props.product, event.target.value, props.user)
