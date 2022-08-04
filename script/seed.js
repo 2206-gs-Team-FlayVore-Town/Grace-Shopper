@@ -20,11 +20,7 @@ async function seed() {
     User.create({ firstName: "murphy", lastName: "Chablancy", password: "123", email: "murphy@email.com"}),
   ]);
   
-  const products = await Promise.all([
-    Product.create({ name: "figurine", price: 500 })
-  ]);
-
-  const minis=[]
+  const products=[]
   let name1 = ["Human", "Orc", "Elven", "Catperson", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];
   let name2 = ["Fighter", "Paladin", "Knight", "Monk", "Barbarian", "Wizard", "Sorceror", "Cleric", "Druid", "Warlock"]
   let company = ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
@@ -36,16 +32,38 @@ async function seed() {
     let rand5 = Math.floor(Math.random()*50);
     const newMini = { 
       name: `${name1[rand1]} ${name2[rand2]}`, 
-      price: rand4 * 100, 
+      price: rand1 + rand2 + rand3 + rand4,
+      imgURL: "https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg",
       quantityPerItem: 1, 
       specifications: `This is a ${name1[rand1]} ${name2[rand2]} made by ${company[rand3]}. Neat!`, 
       rating: rand5,
       company: company[rand3],
       stock: rand1 + rand2
     }
-    minis.push(newMini);
+    products.push(newMini);
   }
-  minis.map(mini => Product.create(mini))
+
+  let creature = ["Lion", "Tiger", "Bear", "Dog", "Cat", "Dragon", "Gorilla", "Slime Monster", "Ooze Monster", "Werewolf", "Owlbear", "Hellhound", "Beholder", "Demogorgon", "Aboleth", "Kraken", "Giant Rat", "Giant Centipede", "Elemental", "Raptor"];
+  for (let i = 0; i < 50; i++) {
+    let rand1 = Math.floor(Math.random()*20);
+    let rand3 = Math.floor(Math.random()*6);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    const newMini = { 
+      name: `${creature[rand1]}`, 
+      price: rand1  + rand3 + rand4 + rand5,
+      imgUrl: "https://i.etsystatic.com/9213904/r/il/3ae16d/3502796087/il_1588xN.3502796087_pwb1.jpg",
+      quantityPerItem: 1, 
+      specifications: `This is a ${creature[rand1]} made by ${company[rand3]}. Neat!`, 
+      rating: rand5,
+      company: company[rand3],
+      stock: rand1 + rand3
+    }
+    products.push(newMini);
+  }
+
+
+  products.map(item => Product.create(item))
   
   const orders = await Promise.all([
     Order.create()

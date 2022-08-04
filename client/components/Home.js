@@ -14,8 +14,6 @@ export class Home extends React.Component {
   
   render() {
     const { products } = this.props;
-    console.log("!!!", products)
-    products.shift();
     const topItems = products.splice(0,4);
     const row2 = products.splice(0,5);
     const row3 = products.splice(0,5);
