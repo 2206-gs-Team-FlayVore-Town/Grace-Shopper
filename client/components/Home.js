@@ -27,38 +27,22 @@ export class Home extends React.Component {
         <div className="products-array">
           <div className="row">
             {topItems.map((product) => {
-              return (
-                <Link to={`/products/${product.id}`}>
-                  <SingleProductInList product={product} key={product.id} />
-                </Link>
-              );
+              return <SingleProductInList product={product} key={product.id} />;
             })}
           </div>
           <div className="row">
             {row2.map((product) => {
-              return (
-                <Link to={`/products/${product.id}`}>
-                  <SingleProductInList product={product} key={product.id} />
-                </Link>
-              );
+              return <SingleProductInList product={product} key={product.id} />;
             })}
           </div>
           <div className="row">
             {row3.map((product) => {
-              return (
-                <Link to={`/products/${product.id}`}>
-                  <SingleProductInList product={product} key={product.id} />
-                </Link>
-              );
+              return <SingleProductInList product={product} key={product.id} />;
             })}
           </div>
           <div className="row">
             {row4.map((product) => {
-              return (
-                <Link to={`/products/${product.id}`}>
-                  <SingleProductInList product={product} key={product.id} />
-                </Link>
-              );
+              return <SingleProductInList product={product} key={product.id} />;
             })}
           </div>
         </div>
