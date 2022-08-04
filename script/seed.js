@@ -39,7 +39,7 @@ async function seed() {
       price: rand4 * 100, 
       quantityPerItem: 1, 
       specifications: `This is a ${name1[rand1]} ${name2[rand2]} made by ${company[rand3]}. Neat!`, 
-      rating: rand5 * .1,
+      rating: rand5,
       company: company[rand3],
       stock: rand1 + rand2
     }

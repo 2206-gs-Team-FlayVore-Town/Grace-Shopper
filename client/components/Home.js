@@ -15,38 +15,42 @@ export class Home extends React.Component {
   render() {
     const { products } = this.props;
     console.log("!!!", products)
+    products.shift();
+    const topItems = products.splice(0,4);
+    const row2 = products.splice(0,5);
+    const row3 = products.splice(0,5);
+    const row4 = products.splice(0,5);
+
     return (
       <div className="row">
         <FilterBar />
         <div className="products-array">
           <div className="row">
-            <SingleProductInList product={products[1]}/>
-            <SingleProductInList product={products[2]} />
-            <SingleProductInList product={products[3]} />
-            <SingleProductInList product={products[4]} />
+            {topItems.map((product)=> {
+              return (<SingleProductInList product={product} key={product.id}/>)
+            })}
           </div>
           <div className="row">
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
+          {row2.map((product)=> {
+              return (<SingleProductInList product={product} key={product.id}/>)
+            })}
           </div>
           <div className="row">
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
-            <SingleProductInList />
+          {row3.map((product)=> {
+              return (<SingleProductInList product={product} key={product.id}/>)
+            })}
+          </div>
+          <div className="row">
+          {row4.map((product)=> {
+              return (<SingleProductInList product={product} key={product.id}/>)
+            })}
           </div>
         </div>
       </div>
     );
   }
 }
-/**
- * CONTAINER
- */
+
 const mapState = (state) => {
   return {
     username: state.auth.username,
