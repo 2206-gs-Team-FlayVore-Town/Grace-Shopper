@@ -1,8 +1,7 @@
-const router = require("express").Router();
-const {
-  models: { Order, User, Product },
-} = require("../db");
-module.exports = router;
+
+const router = require('express').Router()
+const { models: { Order, User, Product, OrderProducts }} = require('../db')
+module.exports = router
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -17,20 +16,16 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.body.item);
-    const order = await Order.create();
-    if (req.param.id > -1) {
-      const user = await User.findByPk(req.params.id);
-      order.setUser(user);
+
+    
+    const product = await Product.findByPk(req.body.product)
+    const order = await Order.create()
+    if (req.param.id > -1){
+      const user = await User.findByPk(req.params.id)
+      order.setUser(user)
     }
-    order.addProduct(product, {
-      through: {
-        quantity: req.body.quantity,
-        unitPrice: product.price,
-        totalPrice: req.body.quantity * product.price,
-      },
-    });
-    res.send(product);
+    const orderProduct = await order.addProduct(product, {through: {quantity: req.body.quantity, unitPrice: product.price, totalPrice: req.body.quantity * product.price}})
+    res.send({product, orderProduct: orderProduct[0]})
   } catch (err) {
     next(err);
   }
