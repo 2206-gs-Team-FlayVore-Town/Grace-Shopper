@@ -53,7 +53,7 @@ export class Home extends React.Component {
 
 const mapState = (state) => {
   return {
-    username: state.auth.username,
+    firstName: state.auth.firstName,
     products: state.multipleProducts,
   };
 };
