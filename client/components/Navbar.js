@@ -6,7 +6,7 @@ import AddToCart from "./AddToCart";
 import EditCart from "./EditCart"
 import { Login, Signup } from "./AuthForm";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div>
       <div className="row">
@@ -18,10 +18,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           {isLoggedIn ? (
             <div>
               {/* The navbar will show these links after you log in */}
+              {isAdmin ? (
+                <div><Link to="/users">Users</Link><Link to="/products">Products</Link></div>) : (<span></span>)
+              }
               <Link to="/history">Orders/History</Link>
               <Link to="/account">Account</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
-              <Link to="/">Home</Link>
+              <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -32,15 +35,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/shoppingCart">🛒 Cart</Link>
-              <Link to="/">Home</Link>
+              <Link to="/home">Home</Link>
             </div>
           )}
         </div>
       </div>
-      <div>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />   
-      </div>
+      
       <div className="row">
         <Link to="/all">All</Link>
         <Link to="/characterMinis">Character Minis</Link>
@@ -60,6 +60,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.admin
   };
 };
 

@@ -289,3 +289,12 @@ form div {
 .align-right {
   align-self: right;
 }
+
+.all-product-page {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-product-page .column {
+  width: 15%
+}
