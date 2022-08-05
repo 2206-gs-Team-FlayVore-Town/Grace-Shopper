@@ -1,5 +1,4 @@
 import axios from 'axios'
-import fetchProducts from './multipleProducts'
 
 const TOKEN = "token";
 
@@ -22,27 +21,23 @@ const addProduct = (product) => ({
     product
 })
 
-export const editingProduct = (product) => async dispatch => {
+export const editingProduct = (product, id) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
-    await axios.put("/api/products", {
-      headers: {
-        authorization: token,
-      }, product
+    await axios.put("/api/products/" + id, {
+      token, product
     });
-    return dispatch(fetchProducts);
   }
 }
 
-export const deletingProduct = (product) => async dispatch => {
+export const deletingProduct = (id) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
-    await axios.delete("/api/products", {
+    await axios.delete("/api/products/" + id, {
       headers: {
         authorization: token,
-      }, product
+      }
     });
-    return dispatch(fetchProducts);
   }
 }
 
@@ -50,10 +45,7 @@ export const addingProduct = (product) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
     await axios.post("/api/products", {
-      headers: {
-        authorization: token,
-      }, product
+      token, product
     });
-    return dispatch(fetchProducts);
   }
 }
