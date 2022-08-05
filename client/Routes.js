@@ -8,6 +8,7 @@ import Details from "./components/Details";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Users from "./components/Users"
+import ProductsAdmin from "./components/ProductsAdmin"
 
 class Routes extends Component {
   componentDidMount() {
@@ -29,7 +30,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             {isAdmin ? (
-              <Route path="/users" component={Users}/>) : (<span></span>)
+              <div><Route path="/users" component={Users}/><Route path="/products" component={ProductsAdmin}/></div>) : (<span></span>)
             }
             <Route path="/home" component={Home} />
             <Route path="/shoppingCart" component={Cart} />
