@@ -13,6 +13,7 @@ const EditCart = (props) => {
         {subtotal(cart)} {(combinedQuantityCart(cart))}
       </h3>
       <button> Proceed to Checkout</button>
+      
       {cart.map((item, index) => {
         return (
           <div className="Edit-Product" key={index} value={item}>

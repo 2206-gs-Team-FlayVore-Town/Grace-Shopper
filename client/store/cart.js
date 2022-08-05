@@ -13,7 +13,7 @@ const CHANGE_PRODUCT_QUANTITY = "CHANGE_PRODUCT_QUANTITY"
  * ACTION CREATORS
  */
 const getCart = (cart) => ({type: GET_CART, cart})
-const removeFromCart = (item) => ({type: REMOVING_FROM_CART, item})
+const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
 const changeProductQuantity = (item) => ({type: CHANGE_PRODUCT_QUANTITY, item})
 const addToCart = (product) => ({type: ADD_TO_CART, product})
 
@@ -30,12 +30,12 @@ export const gettingCart = (user) => async dispatch => {
 export const addingToCart = (product,user,quantity) => async dispatch => {
     let res = ''
     if (user){
-      res = await axios.put(`/api/cart/${user}`, { //Create an order for that product attached to that user
+      res = await axios.post(`/api/cart/${user}`, { //Create an order for that product attached to that user
         product, quantity
       })
     }
     else{
-      res = await axios.put(`/api/cart/-1`, { //Only attaches order to user if user is logged in
+      res = await axios.post(`/api/cart/-1`, { //Only attaches order to user if user is logged in
       product, quantity
       })
     }
@@ -43,25 +43,27 @@ export const addingToCart = (product,user,quantity) => async dispatch => {
     return dispatch(addToCart(res.data))
 }
 
-export const removingFromCart = (item,user) => async dispatch => {
+export const removingFromCart = (product,user) => async dispatch => {
+  console.log(product)
   let res = ''
   if(user) {
-    res = await axios.delete(`/api/cart/${user.id}`, item.id)
+    res = await axios.delete(`/api/cart/${user}`, product)
   } else {
-    res = await axios.get(`/api/products/${item.id}`)
+    console.log(product)
+    res = await axios.delete(`/api/cart/-1`, product)
   }
   return dispatch(removeFromCart(res.data))
 }
 
-export const changingProductQuantity = (item,itemQuantity,user) => async dispatch => {
-  let res = ''
-  if(user) {
-    res = await axios.update(`/api/cart/${user.id}`, item.id, itemQuantity) //needs to be adjusted
-  } else {
-    res = await axios.get(`/api/products/${item.id}`)
-  }
-  return dispatch(changeProductQuantity(res.data))
-}
+// export const changingProductQuantity = (item,itemQuantity,user) => async dispatch => {
+//   let res = ''
+//   if(user) {
+//     res = await axios.put(`/api/cart/${user.id}`, {item.said, itemQuantity}) //needs to be adjusted
+//   } else {
+//     res = await axios.get(`/api/products/${item.id}`)
+//   }
+//   return dispatch(changeProductQuantity(res.data))
+// }
 
 /**
  * REDUCER
@@ -78,7 +80,7 @@ export default function(state = initialState, action) {
       cart.push(action.product)
       return cart //added to the what is already in the cart
     case REMOVING_FROM_CART:
-      return state.filter((item) => item.id !== action.id)
+      return state.filter((product) => product.id !== action.id)
     case CHANGE_PRODUCT_QUANTITY:
       return state //needs to be adjusted
     default:

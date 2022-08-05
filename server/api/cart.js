@@ -11,9 +11,8 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   try {
-    
     const product = await Product.findByPk(req.body.product)
     const order = await Order.create()
     if (req.param.id > -1){
@@ -29,10 +28,10 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    let cart = user.shoppingCart
-    let removedProductCart = cart.filter(product => product.productId === req.body)
-    res.send(removedProductCart)
+    console.log(req.body)
+    const deletedProduct = await OrderProducts.findAll()
+    // await deletedProduct.destroy()
+    res.send(deletedProduct)
   } catch (err) {
     next(err)
   }
