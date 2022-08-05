@@ -1,23 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editingProduct, deletingProduct, addingProduct } from "../store";
 import { fetchProducts } from "../store/multipleProducts";
+import AddProduct from "./AddProduct"
+import ProductAdmin from "./ProductAdmin"
 
 /**
  * COMPONENT
  */
 export class Home extends React.Component {
+  constructor () {
+    super()
+    this.refresh = this.refresh.bind(this)
+  }
+  
   componentDidMount() {
-    this.props.getProducts();
+    this.props.getProducts()
+  }
+  
+  refresh() {
+    this.props.getProducts()
   }
 
   render() {
     return (
       <div>
         {this.props.products.map((product)=> {
-              return (<SingleProductInList product={product} key={product.id}/>)
+              return <ProductAdmin product={product} key={product.id} refresh={this.refresh}/>
         })}
-        
+        <AddProduct refresh={this.refresh}/>
       </div>
     );
   }
@@ -32,10 +42,7 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  getProducts: () => dispatch(fetchProducts()),
-  edit: (product) => dispatch(editingProduct(product)),
-  delete: (product) => dispatch(deletingProduct(product)),
-  add: (product) => dispatch(addingProduct(product)),
+  getProducts: () => dispatch(fetchProducts())
 });
 
 export default connect(mapState, mapDispatch)(Home);
