@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product, Order },
+  models: { User, Product, Order, OrderProducts },
 } = require("../server/db");
 
 /**
@@ -15,6 +15,7 @@ async function seed() {
   console.log(User, Product, Order)
 
   const users = []
+  let emailNum = 100;
   let first = ["Jimothy", "Bobert", "Billiam", "Humphrey", "Timbo", "Clintus", "Cleaton", "Danuel", "Georbert", "Tedrick", "Bamantha", "Stepherly", "Hannie", "Savannabelle", "Bethalina", "Charlia", "Layzel", "Sophelope", "Lemma", "Larper"]
   let last = ["Hawkins", "Strickland", "Romero", "Austin", "Thomas", "Love", "Taylor", "Mejia", "Palmer", "Alexander", "Jimenez", "Mann", "Wise", "Watson", "Osborne", "Thornton", "Gardner", "Khan", "Joyce", "Fuller", "Reed", "Kaye", "Reynolds", "Rossi", "Black"]
   for (let i = 0; i < 200; i++) {
@@ -28,8 +29,8 @@ async function seed() {
       firstName: `${first[rand1]}`,
       lastName: `${last[rand2]}`,
       admin: rand3,
-      email: `${first[rand1]}${last[rand2]}${100-rand5}@Testmail.com`,
-      password: `password${100-rand5}`,
+      email: `${first[rand1]}${last[rand2]}${emailNum}@Testmail.com`,
+      password: `password${emailNum}`,
       addressStreet: `${rand5} ${last[rand2]} St.`,
       addressCity: `${last[rand2]}ville`,
       addressState: "Georgia",
@@ -44,6 +45,7 @@ async function seed() {
       ccPostalCode: 23300 + rand4,
     }
     users.push(newUser);
+    emailNum++
   }
   users.push({firstName: `admin`,
       lastName: `1`,
@@ -93,13 +95,41 @@ async function seed() {
     products.push(newMini);
   }
 
-  const orders = await Promise.all([
-    Order.create()
-  ]);
+  const orders = [];
+  for (let i = 0; i < 200; i++) {
+    const rand = Math.floor(Math.random()*5)
+    const newOrder = {
+      completed: (rand === 0)
+    }
+    orders.push(newOrder);
+  }
+
+  let orderNum = 1;
+  const orderProducts = [];
+  for (let i = 0; i < 200; i++) {
+    let rand = Math.ceil(Math.random()*10)
+    let unitPrice = products[orderNum-1].price
+    const newOrderProducts = {
+      quantity: rand,
+      unitPrice: unitPrice,
+      totalPrice: rand*unitPrice,
+      productId: Math.ceil(Math.random()*products.length),
+      orderId: orderNum,
+      // productId: Math.floor(Math.random()*products.length),
+      // orderId: Math.floor(Math.random()*orders.length),
+    }
+    orderProducts.push(newOrderProducts);
+    orderNum++;
+  }  
+
   
   let product = []
   
   let user = []
+
+  let order =[]
+
+  let orderProduct = []
 
   try {
     product = await Promise.all(
@@ -108,13 +138,27 @@ async function seed() {
     user = await Promise.all(
       users.map(user => User.create(user))
       )
+    order = await Promise.all(
+      orders.map(order => 
+        Order.create(order))
+    )
+    orderProduct = await Promise.all(
+      orderProducts.map(orderProduct => OrderProducts.create(orderProduct))
+    )
+
   } catch (err) {
     console.log(err);
   }
 
-  await orders[0].setUser(user[0])
+  // for (let i = 0; i < orders.length; i++) {
+  //   const rand = Math.floor(Math.random(users.length))
+  //   await orders[i].setUser(user[rand])
+  // }
+
+  // await orders[0].setUser(user[0])
+
   
-  await orders[0].addProduct(product[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
+  //await orders[0].addProduct(product[0], {through: {quantity: 1, unitPrice: 500, totalPrice: 1 * 500}})
 
   console.log(`seeded ${users.length} users, ${products.length} products, ${orders.length} orders`);
   console.log(`seeded successfully`);
