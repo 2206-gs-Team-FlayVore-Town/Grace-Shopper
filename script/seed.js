@@ -96,10 +96,12 @@ async function seed() {
   }
 
   const orders = [];
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 500; i++) {
     const rand = Math.floor(Math.random()*5)
+    const rand2 = Math.ceil(Math.random()*users.length)
     const newOrder = {
-      completed: (rand === 0)
+      completed: (rand === 0),
+      userId: rand2
     }
     orders.push(newOrder);
   }
