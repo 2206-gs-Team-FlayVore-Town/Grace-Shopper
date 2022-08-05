@@ -48,10 +48,15 @@ router.post('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    console.log(req.body)
-    const deletedProduct = await OrderProducts.findAll()
-    // await deletedProduct.destroy()
-    res.send(deletedProduct)
+    const deletedProduct = await OrderProducts.findAll({
+      where: {
+        productId: req.params.id
+      }
+    })
+    for(let i = 0; i < deletedProduct.length; i++) {
+      deletedProduct[i].destroy()
+    }
+    res.send(deletedProduct[0])
   } catch (err) {
     next(err)
   }

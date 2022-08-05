@@ -59,13 +59,11 @@ export const checkingOut = () => async dispatch => {
   }
   
 export const removingFromCart = (product,user) => async dispatch => {
-  console.log(product)
   let res = ''
   if(user) {
-    res = await axios.delete(`/api/cart/${user}`, product)
+    res = await axios.delete(`/api/cart/${user}`, {product})
   } else {
-    console.log(product)
-    res = await axios.delete(`/api/cart/-1`, product)
+    res = await axios.delete(`/api/cart/${product.id}`)
   }
   return dispatch(removeFromCart(res.data))
 }
@@ -97,7 +95,8 @@ export default function (state = initialState, action) {
     case CHECKOUT:
       return initialState;
     case REMOVING_FROM_CART:
-      return state.filter((product) => product.id !== action.id)
+      console.log(state[0].product.id)
+      return state.filter((product) => product.product.id !== action.product.productId)
     case CHANGE_PRODUCT_QUANTITY:
       return state //needs to be adjusted
     default:
