@@ -52,6 +52,11 @@ async function seed() {
       admin: true,
       email: `admin@email.com`,
       password: `admin`,})
+  users.push({firstName: `notadmin`,
+      lastName: `1`,
+      admin: false,
+      email: `notadmin@email.com`,
+      password: `notadmin`,})
 
   const products=[]
   let name1 = ["Human", "Orc", "Elven", "Kittenfolk", "Goblin", "Dwarven", "Giant", "Dragonborn", "Gnome", "Lizardfolk", "Angel", "Demon"];

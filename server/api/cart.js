@@ -16,8 +16,6 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-
-    
     const product = await Product.findByPk(req.body.product)
     const order = await Order.create()
     if (req.param.id > -1){
