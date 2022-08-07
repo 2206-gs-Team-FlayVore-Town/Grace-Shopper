@@ -38,14 +38,18 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           )}
         </div>
       </div>
-      <div className="row">
-        <Link to="/all">All</Link>
-        <Link to="/characterMinis">Character Minis</Link>
-        <Link to="/creatureMinis">Creature Minis</Link>
-        <Link to="/accessories">Accessories</Link>
-        <Link to="/dice">Dice</Link>
-        <Link to="/artSupplies">Art Supplies</Link>
-      </div>
+      <Route path="/home" element={
+            <div className="row">
+            <Link to="/all">All</Link>
+            <Link to="/characterMinis">Character Minis</Link>
+            <Link to="/creatureMinis">Creature Minis</Link>
+            <Link to="/accessories">Accessories</Link>
+            <Link to="/dice">Dice</Link>
+            <Link to="/artSupplies">Art Supplies</Link>
+          </div>
+        }>
+
+      </Route>
       <hr />
     </div>
   </nav>

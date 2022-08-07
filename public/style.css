@@ -289,8 +289,13 @@ form div {
 .all-product-page {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .all-product-page .column {
-  width: 15%
+  width: 15%;
+}
+
+.spacer {
+  width: 20%
 }

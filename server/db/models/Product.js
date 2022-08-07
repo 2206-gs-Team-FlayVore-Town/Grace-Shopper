@@ -30,6 +30,9 @@ const Product = db.define('product', {
   stock: {
     type: Sequelize.INTEGER,
   },
+  category: {
+    type: Sequelize.STRING,
+  }
 })
 
 module.exports = Product
