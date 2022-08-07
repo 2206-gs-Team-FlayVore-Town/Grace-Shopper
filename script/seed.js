@@ -76,7 +76,8 @@ async function seed() {
       specifications: `This is a ${name1[rand1]} ${name2[rand2]} made by ${company[rand3]}. Neat!`, 
       rating: rand5,
       company: company[rand3],
-      stock: rand1 + rand2
+      stock: rand1 + rand2,
+      category: "characterMinis"
     }
     products.push(newMini);
   }
@@ -95,7 +96,8 @@ async function seed() {
       specifications: `This is a ${creature[rand1]} made by ${company[rand3]}. Neat!`, 
       rating: rand5,
       company: company[rand3],
-      stock: rand1 + rand3
+      stock: rand1 + rand3,
+      category: "creatureMinis"
     }
     products.push(newMini);
   }
