@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import {removingFromCart, changingProductQuantity, gettingCart } from "../store";
+import {removingFromCart, changingProductQuantity } from "../store";
 
 const Cart = (props) => {
-  let { user, cart, deleteProduct, changeProductQuantity, getCart } = props;
+  let { user, cart, deleteProduct, changeProductQuantity } = props;
   
   function combinedCart(cart) {
     let newCart = {};
@@ -65,7 +65,7 @@ const Cart = (props) => {
         );
     });
   }
-  getCart()
+  
   return (
     <ul>
       <div>
@@ -92,7 +92,6 @@ const mapState = (state) => {
 
 const mapDispatch = dispatch => {
   return {
-    getCart: () => dispatch(gettingCart()),
     changeProductQuantity: (product,productQuantity, user) => dispatch(changingProductQuantity(product,productQuantity,user)),
     deleteProduct: (product,user) => dispatch(removingFromCart(product, user))
   }
