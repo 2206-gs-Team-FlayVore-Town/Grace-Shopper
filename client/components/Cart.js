@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Route, Link } from "react-router-dom";
-import {removingFromCart, changingProductQuantity, gettingCart, checkingOut } from "../store";
+import {removingFromCart, changingProductQuantity, checkingOut } from "../store";
 
 const Cart = (props) => {
-  let { user, cart, deleteProduct, changeProductQuantity, getCart } = props;
+  let { user, cart, deleteProduct, changeProductQuantity } = props;
   
   function combinedCart(cart) {
     let newCart = {};
@@ -66,7 +66,7 @@ const Cart = (props) => {
         );
     });
   }
-  getCart()
+  
   return (
     <ul>
       <div>
@@ -95,7 +95,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     checkout: () => dispatch(checkingOut()),
-    getCart: () => dispatch(gettingCart()),
     changeProductQuantity: (product,productQuantity, user) => dispatch(changingProductQuantity(product,productQuantity,user)),
     deleteProduct: (product,user) => dispatch(removingFromCart(product, user))
   }

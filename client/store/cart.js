@@ -27,10 +27,13 @@ const changeProductQuantity = (product) => ({type: CHANGE_PRODUCT_QUANTITY, prod
  */
 
 export const gettingCart = (user) => async dispatch => {
+  let res = ''
     if (user){ //if logged in will have a user id to retreiver the cart
-      const res = await axios.get(`/api/cart/${user.id}`) //find cart of that user
-      return dispatch(getCart(res.data))
+      res = await axios.get(`/api/cart/${user.id}`) //find cart of that user
+    } else {
+      res = await axios.get(`/api/cart/-1`)
     }
+    return dispatch(getCart(res.data))
 }
  
 export const addingToCart = (product,user,quantity) => async dispatch => {
