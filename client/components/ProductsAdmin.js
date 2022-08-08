@@ -24,10 +24,14 @@ export class Home extends React.Component {
   render() {
     return (
       <div>
-        {this.props.products.map((product)=> {
-              return <ProductAdmin product={product} key={product.id} refresh={this.refresh}/>
-        })}
-        <AddProduct refresh={this.refresh}/>
+        <h1 className="title">Products</h1>
+        <div className="all-product-page">
+          {this.props.products.map((product, index)=> {
+                return <ProductAdmin product={product} key={product.id} refresh={this.refresh} index={index}/>
+          })}
+          
+        </div>
+      <AddProduct refresh={this.refresh}/>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 const Checkout = props => {
   return (
-    <h1>Order has been placed</h1>
+    <h1 className="title">Your order has been placed!</h1>
   )
 }
 
