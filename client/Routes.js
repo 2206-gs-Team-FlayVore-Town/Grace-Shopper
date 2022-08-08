@@ -28,14 +28,21 @@ class Routes extends Component {
           <Navbar />
         </div>
         {isLoggedIn ? (
-          <Switch>
+          <div>
             {isAdmin ? (
-              <div><Route path="/users" component={Users}/><Route path="/products" component={ProductsAdmin}/></div>) : (<span></span>)
+              <Switch>
+                <Route path="/users" component={Users}/>
+                <Route path="/products" component={ProductsAdmin}/>
+                <Route path="/home" component={Home} />
+                <Route path="/shoppingCart" component={Cart} />
+                <Route exact path="/products/:id" component={Details} />
+              </Switch>) : (<Switch>
+                <Route path="/home" component={Home} />
+                <Route path="/shoppingCart" component={Cart} />
+                <Route exact path="/products/:id" component={Details} />
+              </Switch>)
             }
-            <Route path="/home" component={Home} />
-            <Route path="/shoppingCart" component={Cart} />
-            <Route exact path="/products/:id" component={Details} />
-          </Switch>
+          </div>
         ) : (
           <Switch>
             <Route path="/home" component={Home} />
