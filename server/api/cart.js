@@ -31,7 +31,7 @@ router.put("/checkout", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.post('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.body.product)
     const order = await Order.create()
@@ -44,4 +44,16 @@ router.put("/:id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const deletedProduct = await OrderProducts.findAll()
+    // await deletedProduct.destroy()
+    res.send(deletedProduct)
+  } catch (err) {
+    next(err)
+  }
+})
+

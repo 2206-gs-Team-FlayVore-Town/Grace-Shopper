@@ -7,6 +7,7 @@ const EditCart = (props) => {
     <div>
       <h3>Cart Subtotal (1 item): $23.00</h3>
       <button> Proceed to Checkout</button>
+<<<<<<< HEAD
       <div>
         <img
           className="product-image"
@@ -21,6 +22,26 @@ const EditCart = (props) => {
         <option value="3">3</option>
       </select>
       <button onClick={() => props.removeItem(props.product, props.user)}>Delete</button>
+=======
+      
+      {cart.map((item, index) => {
+        return (
+          <div className="Edit-Product" key={index} value={item}>
+            <img className="product-image" src={item.imgURL} />
+            <h4>{item.name}</h4>
+            <h4>{item.unitPrice}</h4>
+            <select onChange={() => updateCart(props.product, event.target.value, props.user)}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <button type="button" className="Delete-Product" onClick={() => removeItem(props.product, props.user)}>
+              Delete
+            </button>
+          </div>
+        );
+      })}
+>>>>>>> cbff9a9 (delete functionality)
     </div>
   );
 };
