@@ -1,9 +1,10 @@
-import axios from 'axios'
-import history from '../history'
+import axios from "axios";
+import history from "../history";
 
 /**
  * ACTION TYPES
  */
+
 const GET_CART = "GET_CART"
 const ADD_TO_CART = "ADD_TO_CART"
 const REMOVING_FROM_CART = "REMOVING_FROM_CART"
@@ -12,6 +13,7 @@ const CHANGE_PRODUCT_QUANTITY = "CHANGE_PRODUCT_QUANTITY"
 /**
  * ACTION CREATORS
  */
+
 const getCart = (cart) => ({type: GET_CART, cart})
 const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
 const changeProductQuantity = (product) => ({type: CHANGE_PRODUCT_QUANTITY, product})
@@ -20,6 +22,7 @@ const addToCart = (product) => ({type: ADD_TO_CART, product})
 /**
  * THUNK CREATORS
  */
+
 export const gettingCart = (user) => async dispatch => {
   let res = ''
     if (user){ //if logged in will have a user id to retreiver the cart
@@ -42,7 +45,6 @@ export const addingToCart = (product,user,quantity) => async dispatch => {
       product, quantity
       })
     }
-    console.log(res.data)
     return dispatch(addToCart(res.data))
 }
 
@@ -77,7 +79,7 @@ export default function(state = initialState, action) {
   let cart = state.slice()
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.cart;
     case ADD_TO_CART:
       cart.push(action.product)
       return cart //added to the what is already in the cart
@@ -88,6 +90,6 @@ export default function(state = initialState, action) {
       cart.push(action.product)
       return cart
     default:
-      return state
+      return state;
   }
 }
