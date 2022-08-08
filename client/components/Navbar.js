@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 import { logout } from "../store";
+import AddToCart from "./AddToCart";
+import EditCart from "./EditCart"
 import { Login, Signup } from "./AuthForm";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
@@ -38,6 +40,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           )}
         </div>
       </div>
+<<<<<<< HEAD
       <Route path="/home" element={
             <div className="row">
             <Link to="/all">All</Link>
@@ -50,6 +53,17 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
         }>
 
       </Route>
+=======
+      
+      <div className="row">
+        <Link to="/all">All</Link>
+        <Link to="/characterMinis">Character Minis</Link>
+        <Link to="/creatureMinis">Creature Minis</Link>
+        <Link to="/accessories">Accessories</Link>
+        <Link to="/dice">Dice</Link>
+        <Link to="/artSupplies">Art Supplies</Link>
+      </div>
+>>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
       <hr />
     </div>
   </nav>

@@ -85,7 +85,7 @@ const Cart = (props) => {
   );
 };
 
-const mapState = state => {
+const mapState = (state) => {
   return {
     cart: state.cart,
     user: state.user,

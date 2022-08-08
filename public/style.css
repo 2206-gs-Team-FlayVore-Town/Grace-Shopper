@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.product-image {
+  height: 200px;
+  width: 200px;
+}
 .container {
   box-sizing: border-box;
 

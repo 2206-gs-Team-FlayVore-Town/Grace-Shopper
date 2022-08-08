@@ -1,12 +1,24 @@
 import React from "react";
+<<<<<<< HEAD
 import {connect} from 'react-redux'
 import {changingProductQuantity, removingFromCart} from '../store'
+=======
+import { connect } from "react-redux";
+import { changingProductQuantity, removingFromCart } from "../store";
+>>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
 
 const EditCart = (props) => {
+  // console.log(props)
+  let { cart, removeItem, updateCart, user } = props;
+
   return (
-    <div>
-      <h3>Cart Subtotal (1 item): $23.00</h3>
+    <div> 
+      <h3>
+        Cart Subtotal ({items(cart)} {items(cart) === 1 ? "item" : "items"}): $
+        {subtotal(cart)} {(combinedQuantityCart(cart))}
+      </h3>
       <button> Proceed to Checkout</button>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div>
         <img
@@ -23,6 +35,8 @@ const EditCart = (props) => {
       </select>
       <button onClick={() => props.removeItem(props.product, props.user)}>Delete</button>
 =======
+=======
+>>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
       
       {cart.map((item, index) => {
         return (
@@ -41,11 +55,15 @@ const EditCart = (props) => {
           </div>
         );
       })}
+<<<<<<< HEAD
 >>>>>>> cbff9a9 (delete functionality)
+=======
+>>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
     </div>
   );
 };
 
+<<<<<<< HEAD
 const mapState = state => {
   return {
     user: state.user
@@ -78,3 +96,20 @@ export default connect(mapState, mapDispatch)(EditCart)
 //     );
 //   });
 // }
+=======
+const mapState = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    removeItem: (item, user) => dispatch(removingFromCart(item, user)),
+    updateCart: (item, itemQuantity, user) =>
+      dispatch(changingProductQuantity(item, itemQuantity, user)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(EditCart);
+>>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
