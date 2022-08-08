@@ -10,29 +10,28 @@ const Product = db.define('product', {
     }
   },
   imgURL: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
   },
   quantityPerItem: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   specifications: {
     type: Sequelize.TEXT,
   },
   rating: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
   },
   company: {
     type: Sequelize.STRING,
   },
   stock: {
-    type: sequelize.INTEGER,
+    type: Sequelize.INTEGER,
   },
-  tags: {
-    type: Sequelize.ARRAY,
+  category: {
+    type: Sequelize.STRING,
   }
 })
 

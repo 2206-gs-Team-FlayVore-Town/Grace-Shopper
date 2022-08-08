@@ -1,14 +1,14 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
+const Sequelize = require("sequelize");
+const db = require("../db");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const User = db.define("user", {
   admin: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
   email: {
     type: Sequelize.STRING,
@@ -16,24 +16,25 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       isEmail: true,
-    }
+    },
   },
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
-    }
+    },
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
-    }
+    },
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
   },
   addressStreet: {
     type: Sequelize.STRING,
@@ -50,42 +51,23 @@ const User = db.define('user', {
   addressZip: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [5]
-    }
+      len: [5],
+    },
   },
-  // shoppingCart: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // sellerRating: {
-  //   type: Sequelize.NUMBER,
-  // },
-  // favoritedItems: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // wishList: {
-  //   type: Sequelize.ARRAY,
-  // },
-  // history: {
-  //   type: Sequelize.ARRAY,
-  // },
-  ccName: {    
+  sellerRating: {
+    type: Sequelize.INTEGER,
+  },
+  ccName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
   },
   ccNumber: {
-    type: Sequelize.NUMBER,
-    validate: {
-      isCreditCard: true,
-    }
+    type: Sequelize.FLOAT,
   },
   ccSecurityCode: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [3,4],
-    }
+      len: [3, 4],
+    },
   },
   ccExpiryMonth: {
     type: Sequelize.INTEGER,
@@ -96,63 +78,63 @@ const User = db.define('user', {
   ccPostalCode: {
     type: Sequelize.INTEGER,
     validate: {
-      len: [5]
-    }
-  }
-})
+      len: [5],
+    },
+  },
+});
 
-module.exports = User
+module.exports = User;
 
 /**
  * instanceMethods
  */
-User.prototype.correctPassword = function(candidatePwd) {
+User.prototype.correctPassword = function (candidatePwd) {
   //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
-}
+};
 
-User.prototype.generateToken = function() {
-  return jwt.sign({id: this.id}, process.env.JWT)
-}
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT);
+};
 
 /**
  * classMethods
  */
-User.authenticate = async function({ username, password }){
-    const user = await this.findOne({where: { username }})
-    if (!user || !(await user.correctPassword(password))) {
-      const error = Error('Incorrect username/password');
-      error.status = 401;
-      throw error;
-    }
-    return user.generateToken();
+User.authenticate = async function ({ email, password }) {
+  const user = await this.findOne({ where: { email } });
+  if (!user || !(await user.correctPassword(password))) {
+    const error = Error("Incorrect email/password");
+    error.status = 401;
+    throw error;
+  }
+  return user.generateToken();
 };
 
-User.findByToken = async function(token) {
+User.findByToken = async function (token) {
   try {
-    const {id} = await jwt.verify(token, process.env.JWT)
-    const user = User.findByPk(id)
+    const { id } = await jwt.verify(token, process.env.JWT);
+    const user = User.findByPk(id);
     if (!user) {
-      throw 'nooo'
+      throw "nooo";
     }
-    return user
+    return user;
   } catch (ex) {
-    const error = Error('bad token')
-    error.status = 401
-    throw error
+    const error = Error("bad token");
+    error.status = 401;
+    throw error;
   }
-}
+};
 
 /**
  * hooks
  */
-const hashPassword = async(user) => {
+const hashPassword = async (user) => {
   //in case the password has been changed, we want to encrypt it with bcrypt
-  if (user.changed('password')) {
+  if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
   }
-}
+};
 
-User.beforeCreate(hashPassword)
-User.beforeUpdate(hashPassword)
-User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
+User.beforeCreate(hashPassword);
+User.beforeUpdate(hashPassword);
+User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));

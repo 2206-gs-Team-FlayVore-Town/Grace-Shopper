@@ -1,50 +1,77 @@
-import axios from 'axios'
-import history from '../history'
+import axios from "axios";
+import history from "../history";
+
+const TOKEN = "token";
 
 /**
  * ACTION TYPES
  */
-const GET_CART = "GET_CART"
-const ADD_TO_CART = "ADD_TOCART"
+const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const CHECKOUT = "CHECKOUT"
 
 /**
  * ACTION CREATORS
  */
+
 const getCart = (cart) => ({type: GET_CART, cart})
-const addToCart = (item) => ({type: ADD_TO_CART, item})
+const addToCart = (product) => ({type: ADD_TO_CART, product})
+const checkout = () => ({type: CHECKOUT})
+
 
 /**
  * THUNK CREATORS
  */
+
 export const gettingCart = (user) => async dispatch => {
     if (user){ //if logged in will have a user id to retreiver the cart
-      const res = await axios.get(`/users/${user.id}/cart`) //find cart of that user
+      const res = await axios.get(`/api/cart/${user.id}`) //find cart of that user
       return dispatch(getCart(res.data))
     }
 }
  
-export const addingToCart = (item,user) => async dispatch => {
-    const res = await axios.post(`/users/${user}/cart`, { //Send Id of item to that user
-      item
-    })
+export const addingToCart = (product,user,quantity) => async dispatch => {
+    let res = ''
+    if (user){
+      res = await axios.put(`/api/cart/${user}`, { //Create an order for that product attached to that user
+        product, quantity
+      })
+    }
+    else{
+      res = await axios.put(`/api/cart/-1`, { //Only attaches order to user if user is logged in
+      product, quantity
+      })
+    }
     return dispatch(addToCart(res.data))
+}
+
+
+export const checkingOut = () => async dispatch => {
+    const token = window.localStorage.getItem(TOKEN);
+    await axios.put(`/api/cart/checkout`, 
+    {headers: {
+        authorization: token,
+    }}) 
+    return dispatch(checkout())
 }
 
 /**
  * REDUCER
  */
- 
-const initialState = [] 
- 
-export default function(state = initialState, action) {
+
+const initialState = [];
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.cart;
     case ADD_TO_CART:
       let cart = state.slice()
-      cart.push(action.item)
+      cart.push(action.product)
       return cart //added to the what is already in the cart
+    case CHECKOUT:
+      return initialState;
     default:
-      return state
+      return state;
   }
 }
