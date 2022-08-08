@@ -1,14 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { checkingOut } from '../store'
+import { Route, Link } from "react-router-dom";
 
 const Cart = props => {
   return (
-    <ul>
-        {props.cart.map((order, index) => {
-        console.log(order)
-            return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice}</li>
-        })}
-    </ul>
+    <div>
+      <ul>
+          {props.cart.map((order, index) => {
+              return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice}</li>
+          })}
+      </ul>
+      <Link to="/checkout" onClick={() => props.checkout()}>Proceed To Checkout</Link>
+    </div>
   )
 }
 
@@ -18,5 +22,9 @@ const mapState = state => {
   }
 }
 
+const mapDispatch = (dispatch) => ({
+  checkout: () => dispatch(checkingOut())
+});
 
-export default connect(mapState)(Cart)
+
+export default connect(mapState,mapDispatch)(Cart)

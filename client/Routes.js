@@ -9,6 +9,7 @@ import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Users from "./components/Users"
 import ProductsAdmin from "./components/ProductsAdmin"
+import Checkout from "./components/Checkout"
 
 class Routes extends Component {
   componentDidMount() {
@@ -36,10 +37,12 @@ class Routes extends Component {
                 <Route path="/home" component={Home} />
                 <Route path="/shoppingCart" component={Cart} />
                 <Route exact path="/products/:id" component={Details} />
+                <Route path="/checkout" component={Checkout} />
               </Switch>) : (<Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/shoppingCart" component={Cart} />
                 <Route exact path="/products/:id" component={Details} />
+                <Route path="/checkout" component={Checkout} />
               </Switch>)
             }
           </div>
@@ -50,6 +53,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/products/:id" component={Details} />
+            <Route path="/checkout" component={Checkout} />
           </Switch>
         )}
       </div>

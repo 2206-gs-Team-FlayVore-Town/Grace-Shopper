@@ -14,6 +14,23 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/checkout", async (req, res, next) => {
+  try {
+    if (req.headers.authorization){
+      const user = await User.findByToken(req.headers.authorization)
+      await Order.update({
+        completed: true
+      },
+      {
+        where: { userId: user.id},
+      });
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:id", async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.body.product)
