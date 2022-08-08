@@ -8,7 +8,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div>
       <div className="row">
-        <h1 className="store-name">Store Name</h1>
+        <h1 className="store-name">Tavern Minis</h1>
         <div className="search-bar">
           <input className="search-bar" type="text" placeholder="Search.." />
         </div>
