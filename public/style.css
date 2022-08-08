@@ -241,6 +241,17 @@ form div {
   align-items: left;
 }
 
+.top-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.top-row .column {
+  width: 20%;
+}
+
 .search-bar {
   align-items: center;
   justify-content: space-between;

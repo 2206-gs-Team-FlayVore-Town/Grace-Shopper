@@ -1,8 +1,24 @@
 import React from "react";
 
-export const FilterBar = (props) => {
-  return (
+export class FilterBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
       <div className="filter-bar">
+        <h2> Sort by: </h2>
+        <select
+          onChange={(evt) => {this.props.selectSortByParam(evt.target.value)}}
+        >
+          <option value="Rating (high to low)">Rating (high to low)</option>
+          <option value="Rating (low to high)">Rating (low to high)</option>
+          <option value="Price (low to high)">Price (low to high)</option>
+          <option value="Price (high to low)">Price (high to low)</option>
+        </select>
         <h2> Filter by: </h2>
         <h3> Price:</h3>
         <div>
@@ -93,5 +109,6 @@ export const FilterBar = (props) => {
           </div>
         </div>
       </div>
-  );
-};
+    );
+  }
+}
