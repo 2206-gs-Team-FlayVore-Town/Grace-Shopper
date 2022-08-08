@@ -1,22 +1,32 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
-const Cart = props => {
+const Cart = (props) => {
+  let str;
+  if (localStorage.getItem("cart") <= 0) {
+    localStorage.setItem("cart", JSON.stringify(props.cart));
+  } else {
+    str = JSON.parse(localStorage.getItem("cart") || "[]");
+  }
+
   return (
     <ul>
-        {props.cart.map((order, index) => {
-        console.log(order)
-            return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice}</li>
-        })}
+      {str.map((order, index) => {
+        return (
+          <li key={index}>
+            {order.product.name} x{order.orderProduct.quantity} Total:
+            {order.orderProduct.totalPrice}
+          </li>
+        );
+      })}
     </ul>
-  )
-}
+  );
+};
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    cart: state.cart
-  }
-}
+    cart: state.cart,
+  };
+};
 
-
-export default connect(mapState)(Cart)
+export default connect(mapState)(Cart);

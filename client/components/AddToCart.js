@@ -1,14 +1,13 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {addingToCart} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { addingToCart } from "../store";
 
-const AddToCart = props => {
-  
-  const handleSubmit = () =>{
-    let quantity = document.getElementById(`quantity${props.product}`).value
-    props.addProduct(props.product, props.user, quantity) //assuming id of product and user being passed down
-  }
-  
+const AddToCart = (props) => {
+  const handleSubmit = () => {
+    let quantity = document.getElementById(`quantity${props.product}`).value;
+    props.addProduct(props.product, props.user, quantity); //assuming id of product and user being passed down
+  };
+
   return (
     <div>
       <select id={`quantity${props.product}`}>
@@ -22,21 +21,22 @@ const AddToCart = props => {
         <option value="8">8</option>
         <option value="9">9</option>
       </select>
-      <button onClick={() => handleSubmit()}>AddToCart</button> 
+      <button onClick={() => handleSubmit()}>AddToCart</button>
     </div>
-  )
-}
+  );
+};
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    user: state.user
-  }
-}
+    user: state.user,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    addProduct: (product,user,quantity) => dispatch(addingToCart(product,user,quantity))
-  }
-}
+    addProduct: (product, user, quantity) =>
+      dispatch(addingToCart(product, user, quantity)),
+  };
+};
 
-export default connect(mapState, mapDispatch)(AddToCart)
+export default connect(mapState, mapDispatch)(AddToCart);
