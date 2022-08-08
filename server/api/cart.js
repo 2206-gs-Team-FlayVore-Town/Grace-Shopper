@@ -85,7 +85,7 @@ router.put("/:id", async (req, res, next) => {
     for (let i = 0; i < updatedProduct.length; i++) {
       updatedProduct[i].destroy();
     }
-
+    
     const { productQuantity } = req.body;
 
     const product = await Product.findByPk(req.body.product.id);

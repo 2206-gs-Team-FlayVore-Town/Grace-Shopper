@@ -1,11 +1,6 @@
 import React from "react";
-<<<<<<< HEAD
 import {connect} from 'react-redux'
 import {changingProductQuantity, removingFromCart} from '../store'
-=======
-import { connect } from "react-redux";
-import { changingProductQuantity, removingFromCart } from "../store";
->>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
 
 const EditCart = (props) => {
   // console.log(props)
@@ -18,8 +13,6 @@ const EditCart = (props) => {
         {subtotal(cart)} {(combinedQuantityCart(cart))}
       </h3>
       <button> Proceed to Checkout</button>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <div>
         <img
           className="product-image"
@@ -34,9 +27,6 @@ const EditCart = (props) => {
         <option value="3">3</option>
       </select>
       <button onClick={() => props.removeItem(props.product, props.user)}>Delete</button>
-=======
-=======
->>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
       
       {cart.map((item, index) => {
         return (
@@ -55,48 +45,11 @@ const EditCart = (props) => {
           </div>
         );
       })}
-<<<<<<< HEAD
->>>>>>> cbff9a9 (delete functionality)
-=======
->>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3
+
     </div>
   );
 };
 
-<<<<<<< HEAD
-const mapState = state => {
-  return {
-    user: state.user
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    removeItem: (item,user) => dispatch(removingFromCart(item,user)),
-    updateCart: (item,itemQuantity,user) => dispatch(changingProductQuantity(item,itemQuantity,user))
-  }
-}
-
-export default connect(mapState, mapDispatch)(EditCart)
-
-// {
-//   props.cart.map((item) => {
-//     return (
-//       <div className="Edit-Product" key={item.id}>
-//         <img src={item.imgURL}/>
-//         <h4>{item.name}</h4>
-//         <h4>{item.price}</h4>
-//         <select >
-//           <option>1</option>
-//           <option>2</option>
-//           <option>3</option>
-//         </select>
-//         <button type="button" className="Delete-Product">Delete</button>
-//       </div>
-//     );
-//   });
-// }
-=======
 const mapState = (state) => {
   return {
     user: state.user,
@@ -112,4 +65,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(EditCart);
->>>>>>> 91d0d7fac3deaf2d766bb4bb9eb1eea1673e91f3

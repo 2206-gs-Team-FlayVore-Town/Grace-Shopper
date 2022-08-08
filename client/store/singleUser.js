@@ -1,6 +1,10 @@
 import axios from "axios";
 
+const TOKEN = "token";
+
 const CREATE_USER = "CREATE_USER";
+const EDIT_USER = "EDIT_USER"
+const DELETE_USER = "DELETE_USER"
 
 export const _createUser = (user) => {
   return {
@@ -8,6 +12,21 @@ export const _createUser = (user) => {
     user,
   };
 };
+
+export const _editUser = (user) => {
+  return {
+    type: EDIT_USER,
+    user,
+  };
+};
+
+export const _deleteUser = (user) => {
+  return {
+    type: DELETE_USER,
+    user,
+  };
+};
+
 
 export const createUser = (
   firstName,
@@ -31,6 +50,17 @@ export const createUser = (
       addressZip,
     });
     dispatch(_createUser(data));
+  };
+};
+
+export const editUser = (user) => {
+  return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN);
+    const { data } = await axios.put("/auth/edit", {
+      user,
+      token
+    });
+    dispatch(_editUser(data));
   };
 };
 

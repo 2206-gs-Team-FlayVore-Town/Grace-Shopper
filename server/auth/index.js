@@ -32,3 +32,12 @@ router.get("/me", async (req, res, next) => {
     next(ex);
   }
 });
+
+router.put("/edit", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.body.token)
+    res.send(await user.update(req.body.user));
+  } catch (err) {
+    next(err);
+  }
+});
