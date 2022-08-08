@@ -20,7 +20,7 @@ const getCart = (cart) => ({type: GET_CART, cart})
 const addToCart = (product) => ({type: ADD_TO_CART, product})
 const checkout = () => ({type: CHECKOUT})
 const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
-const changeProductQuantity = (item) => ({type: CHANGE_PRODUCT_QUANTITY, item})
+const changeProductQuantity = (product) => ({type: CHANGE_PRODUCT_QUANTITY, product})
 
 /**
  * THUNK CREATORS
@@ -59,6 +59,7 @@ export const checkingOut = () => async dispatch => {
   }
   
 export const removingFromCart = (product,user) => async dispatch => {
+  console.log(product)
   let res = ''
   if(user) {
     res = await axios.delete(`/api/cart/${user}`, {product})
@@ -68,28 +69,28 @@ export const removingFromCart = (product,user) => async dispatch => {
   return dispatch(removeFromCart(res.data))
 }
 
-// export const changingProductQuantity = (item,itemQuantity,user) => async dispatch => {
-//   let res = ''
-//   if(user) {
-//     res = await axios.put(`/api/cart/${user.id}`, {item.said, itemQuantity}) //needs to be adjusted
-//   } else {
-//     res = await axios.get(`/api/products/${item.id}`)
-//   }
-//   return dispatch(changeProductQuantity(res.data))
-// }
+export const changingProductQuantity = (product,productQuantity,user) => async dispatch => {
+  let res = ''
+  if(user) {
+    res = await axios.put(`/api/cart/${user.id}`, {product,productQuantity}) //needs to be adjusted
+  } else {
+    res = await axios.put(`/api/cart/${product.id}`, {product, productQuantity})
+  }
+  return dispatch(changeProductQuantity(res.data))
+}
 
 /**
  * REDUCER
  */
-
-const initialState = [];
-
-export default function (state = initialState, action) {
+ 
+const initialState = [] 
+ 
+export default function(state = initialState, action) {
+  let cart = state.slice()
   switch (action.type) {
     case GET_CART:
       return action.cart;
     case ADD_TO_CART:
-      let cart = state.slice()
       cart.push(action.product)
       return cart //added to the what is already in the cart
     case CHECKOUT:
@@ -98,7 +99,8 @@ export default function (state = initialState, action) {
       console.log(state[0].product.id)
       return state.filter((product) => product.product.id !== action.product.productId)
     case CHANGE_PRODUCT_QUANTITY:
-      return state //needs to be adjusted
+      cart.push(action.product)
+      return cart
     default:
       return state;
   }
