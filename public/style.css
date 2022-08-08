@@ -20,10 +20,10 @@ form div {
   display: inline-block;
 }
 
-AddProduct {
-
+.product-image {
+  height: 200px;
+  width: 200px;
 }
-
 .container {
   box-sizing: border-box;
 
@@ -360,5 +360,3 @@ AddProduct {
 #border9 {
   border-color: purple;
 }
-
-A
