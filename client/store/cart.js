@@ -1,11 +1,14 @@
 import axios from "axios";
 import history from "../history";
 
+const TOKEN = "token";
+
 /**
  * ACTION TYPES
  */
 const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
+const CHECKOUT = "CHECKOUT"
 
 /**
  * ACTION CREATORS
@@ -13,6 +16,8 @@ const ADD_TO_CART = "ADD_TO_CART";
 
 const getCart = (cart) => ({type: GET_CART, cart})
 const addToCart = (product) => ({type: ADD_TO_CART, product})
+const checkout = () => ({type: CHECKOUT})
+
 
 /**
  * THUNK CREATORS
@@ -40,6 +45,16 @@ export const addingToCart = (product,user,quantity) => async dispatch => {
     return dispatch(addToCart(res.data))
 }
 
+
+export const checkingOut = () => async dispatch => {
+    const token = window.localStorage.getItem(TOKEN);
+    await axios.put(`/api/cart/checkout`, 
+    {headers: {
+        authorization: token,
+    }}) 
+    return dispatch(checkout())
+}
+
 /**
  * REDUCER
  */
@@ -54,6 +69,8 @@ export default function (state = initialState, action) {
       let cart = state.slice()
       cart.push(action.product)
       return cart //added to the what is already in the cart
+    case CHECKOUT:
+      return initialState;
     default:
       return state;
   }
