@@ -36,7 +36,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           )}
         </div>
       </div>
-      <hr />
     </div>
   </nav>
 );
