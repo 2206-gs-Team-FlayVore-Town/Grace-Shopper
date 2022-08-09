@@ -66,37 +66,31 @@ export class Home extends React.Component {
         </div>
           <div className="row">
             <Link
-              to="/home/all"
               onClick={() => this.setState({ filter: "all" })}
             >
               All
             </Link>
             <Link
-              to="/home/characterMinis"
               onClick={() => this.setState({ filter: "characterMinis" })}
             >
               Character Minis
             </Link>
             <Link
-              to="/home/creatureMinis"
               onClick={() => this.setState({ filter: "creatureMinis" })}
             >
               Creature Minis
             </Link>
             <Link
-              to="/home/accessories"
               onClick={() => this.setState({ filter: "accessories" })}
             >
               Accessories
             </Link>
             <Link
-              to="/home/dice"
               onClick={() => this.setState({ filter: "dice" })}
             >
               Dice
             </Link>
             <Link
-              to="/home/artSupplies"
               onClick={() => this.setState({ filter: "artSupplies" })}
             >
               Art Supplies
