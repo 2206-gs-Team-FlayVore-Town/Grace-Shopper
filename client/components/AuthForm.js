@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { authenticate, createUser } from "../store";
 import { Link, useHistory } from "react-router-dom";
@@ -14,6 +14,11 @@ import {
   Grid,
   TextField,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
 
 const theme = createTheme();
@@ -22,13 +27,23 @@ const theme = createTheme();
  * COMPONENT
  */
 const AuthForm = (props) => {
+  const [open, setOpen] = useState(false);
+
   let history = useHistory();
   const { name, displayName, handleSubmit, handleNewUser, error } = props;
 
   const redirect = () => {
-    setTimeout(() => {
-      history.push("/");
-    }, 500);
+    setOpen(true);
+    if (displayName === "Login") {
+      setTimeout(() => {
+        history.push("/home");
+      }, 200);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    history.push("/login");
   };
 
   return (
@@ -82,6 +97,19 @@ const AuthForm = (props) => {
             >
               {displayName}
             </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Account created successfully!"}
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose}>Go to Log In</Button>
+              </DialogActions>
+            </Dialog>
 
             {displayName === "Sign Up" && (
               <Grid container justifyContent="flex-end">
