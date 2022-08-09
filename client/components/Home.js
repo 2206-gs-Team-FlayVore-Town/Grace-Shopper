@@ -13,22 +13,44 @@ export class Home extends React.Component {
     super(props);
     this.state = {
       filter: "all",
+
+      sortByParam: "Rating (high to low)",
+      sortedProducts: [],
+      priceFilter: ['0,499','500,999','1000,1499','1500,2499','2500,4999','5000,100000000'],
+      companyFilter: ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
+
     };
   }
 
   componentDidMount() {
     this.props.getProducts();
-    // console.log("props:", this.props, "state", this.state);
+  }
+
+  handleSortByParam = (sortByParam) => {
+    this.setState({sortByParam: sortByParam})
+  }
+
+  handleFilterPrice = (priceFilter) => {
+    this.setState({priceFilter: priceFilter});
+  }
+
+  handleFilterCompany = (companyFilter) => {
+    this.setState({companyFilter: companyFilter})
+
   }
 
   render() {
     const { products } = this.props;
-    let { filter } = this.state;
-    let filteredProducts = products.filter(
+    let { filter, sortByParam, sortedProducts, priceFilter, companyFilter } = this.state;
+    sortedProducts = products.filter(
       (product) => product.category === filter || filter === "all"
     );
-    const topItems = filteredProducts.slice(0, 4);
-    const otherItems = filteredProducts.slice(5);
+    sortedProducts = sortBy(sortByParam, sortedProducts);
+    sortedProducts = filterPrice(priceFilter, sortedProducts);
+    sortedProducts = filterCompany(companyFilter, sortedProducts);
+    const topItems = sortedProducts.slice(0, 4);
+    const otherItems = sortedProducts.slice(5);
+
     return (
       <div>
         <div className="row">
@@ -74,9 +96,9 @@ export class Home extends React.Component {
           <div className="spacer" />
         </div>
         <div className="row">
-          <FilterBar />
+          <FilterBar selectSortByParam={this.handleSortByParam} handleFilterPrice={this.handleFilterPrice} handleFilterCompany={this.handleFilterCompany}/>
           <div className="products-array">
-            <div className="row">
+            <div className="top-row">
               {topItems.map((product) => {
                 return (
                   <SingleProductInList product={product} key={product.id} />
@@ -97,9 +119,51 @@ export class Home extends React.Component {
   }
 }
 
+const sortBy = (param, arr) => {
+  switch (param) {
+    case "Price (low to high)":
+      return arr.sort((a, b) => a.price - b.price);
+    case "Price (high to low)":
+      return arr.sort((a, b) => b.price - a.price);
+    case "Rating (low to high)":
+      return arr.sort((a, b) => a.rating - b.rating);
+    case "Rating (high to low)":
+      return arr.sort((a, b) => b.rating - a.rating);
+    default:
+      return arr.sort((a, b) => a.rating - b.rating);
+  }
+};
+
+const filterPrice = (priceFilter, arr) => {
+  return arr.filter(
+    (product) => (
+      (product.price < 500 && priceFilter.includes('0,499') ||
+       product.price > 499 && product.price < 1000 && priceFilter.includes('500,999') ||
+       product.price > 999 &&product.price < 1500 && priceFilter.includes('1000,1499') ||
+       product.price > 1499 &&product.price < 2500 && priceFilter.includes('1500,2499') ||
+       product.price > 2499 &&product.price < 5000 && priceFilter.includes('2500,4999') ||
+       product.price > 4999 && priceFilter.includes('5000,100000000')
+      )
+    ))
+}
+
+const filterCompany = (companyFilter, arr) => {
+  console.log(arr, companyFilter)
+  return arr.filter(
+    (product) => (
+      (
+        product.company === "Games Workshop" && companyFilter.includes("Games Workshop") ||
+        product.company === "Reaper Minis" && companyFilter.includes("Reaper Minis") ||
+        product.company === "Wizards of the Coast" && companyFilter.includes("Wizards of the Coast") ||
+        product.company === "Hero Forge" && companyFilter.includes("Hero Forge") ||
+        product.company === "Dwarven Forge" && companyFilter.includes("Dwarven Forge") ||
+        product.company === "Miniature Market" && companyFilter.includes("Miniature Market")
+      )
+    ))
+}
+
 const mapState = (state) => {
   return {
-    filter: "all",
     products: state.multipleProducts,
   };
 };

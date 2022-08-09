@@ -70,7 +70,7 @@ async function seed() {
     let rand5 = Math.floor(Math.random()*50);
     const newMini = { 
       name: `${name1[rand1]} ${name2[rand2]}`, 
-      price: rand1 + rand2 + rand3 + rand4,
+      price: (rand1 + rand2 + rand3 + rand4)*100,
       imgURL: "https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg",
       quantityPerItem: 1, 
       specifications: `This is a ${name1[rand1]} ${name2[rand2]} made by ${company[rand3]}. Neat!`, 
@@ -90,7 +90,7 @@ async function seed() {
     let rand5 = Math.floor(Math.random()*50);
     const newMini = { 
       name: `${creature[rand1]}`, 
-      price: rand1  + rand3 + rand4 + rand5,
+      price: (rand1  + rand3 + rand4 + rand5) * 100,
       imgURL: "https://www.furryandthebeast.com/wp-content/uploads/howler-large-dnd-monster.jpg",
       quantityPerItem: 1, 
       specifications: `This is a ${creature[rand1]} made by ${company[rand3]}. Neat!`, 

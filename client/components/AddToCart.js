@@ -8,11 +8,12 @@ const AddToCart = (props) => {
     props.addProduct(props.product, props.user, quantity); //assuming id of product and user being passed down
   };
 
+
   return (
     <div>
       <select id={`quantity${props.product}`}>
-        <option value="1">1</option>
-        <option value="2">2</option>
+        <option type="number" value="1">1</option>
+        <option type="number" value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
@@ -28,9 +29,10 @@ const AddToCart = (props) => {
 
 const mapState = (state) => {
   return {
-    user: state.user,
-  };
-};
+    user: state.auth
+  }
+}
+
 
 const mapDispatch = (dispatch) => {
   return {
