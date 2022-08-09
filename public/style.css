@@ -1,5 +1,5 @@
-body {
-  font-family: sans-serif;
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
@@ -246,8 +246,8 @@ form div {
   justify-content: space-between;
 }
 
-
 .filter-row {
+  font-size: 12px;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -274,7 +274,7 @@ form div {
 }
 
 .all-product-view-thumbnail {
-  width: 90%;
+  width: 100%;
   margin: 3%;
 }
 
@@ -297,5 +297,5 @@ form div {
 }
 
 .spacer {
-  width: 20%
+  width: 20%;
 }

@@ -12,7 +12,9 @@ export const SingleProductInList = (props) => {
     <div className="column">
       <Link to={`/products/${product.id}`}>
         <img className="all-product-view-thumbnail" src={product.imgURL} />
-        <div style={{ fontSize: 20 }}>{product.name}</div>
+        <div className="product-title" style={{ fontSize: 20 }}>
+          {product.name}
+        </div>
         <div className="row">
           <div style={{ fontSize: 12 }}>
             ${(product.price * 0.01).toFixed(2)}
@@ -22,7 +24,7 @@ export const SingleProductInList = (props) => {
           </div>
         </div>
       </Link>
-      <div style={{ fontSize: 10 }}> {product.specifications} </div>
+      <div style={{ fontSize: 12 }}> {product.specifications} </div>
       <AddToCart product={product.id} />
     </div>
   );
