@@ -259,6 +259,7 @@ form div {
 .search-bar {
   align-items: center;
   justify-content: space-between;
+  width: 80%;
 }
 
 
@@ -268,11 +269,6 @@ form div {
   width: 100%;
   align-content: left;
   align-items: left;
-}
-
-.search-bar {
-  width: 80%;
-  margin: 1em;
 }
 
 .store-name {

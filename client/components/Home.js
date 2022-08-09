@@ -16,7 +16,8 @@ export class Home extends React.Component {
       sortByParam: "Rating (high to low)",
       sortedProducts: [],
       priceFilter: ['0,499','500,999','1000,1499','1500,2499','2500,4999','5000,100000000'],
-      companyFilter: ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
+      companyFilter: ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"],
+      searchFilter: ''
     };
   }
 
@@ -36,21 +37,30 @@ export class Home extends React.Component {
     this.setState({companyFilter: companyFilter})
   }
 
+  handleSearchbar = (searchFilter) => {
+    this.setState({searchFilter: searchFilter})
+  }
+
   render() {
     const { products } = this.props;
-    let { filter, sortByParam, sortedProducts, priceFilter, companyFilter } = this.state;
+    let { filter, sortByParam, sortedProducts, priceFilter, companyFilter, searchFilter } = this.state;
     sortedProducts = products.filter(
       (product) => product.category === filter || filter === "all"
     );
     sortedProducts = sortBy(sortByParam, sortedProducts);
     sortedProducts = filterPrice(priceFilter, sortedProducts);
     sortedProducts = filterCompany(companyFilter, sortedProducts);
+    sortedProducts = filterSearchbar(searchFilter, sortedProducts);
     const topItems = sortedProducts.slice(0, 4);
     const otherItems = sortedProducts.slice(5);
     return (
       <div>
+                
         <div className="row">
           <div className="spacer" />
+          <div className="search-bar">
+          <input className="search-bar" type="text" onChange={(evt)=>{this.handleSearchbar(evt.target.value)}} placeholder="Search.." />
+        </div>
           <div className="row">
             <Link
               to="/home/all"
@@ -144,18 +154,26 @@ const filterPrice = (priceFilter, arr) => {
 }
 
 const filterCompany = (companyFilter, arr) => {
-  console.log(arr, companyFilter)
   return arr.filter(
     (product) => (
-      (
+      
         product.company === "Games Workshop" && companyFilter.includes("Games Workshop") ||
         product.company === "Reaper Minis" && companyFilter.includes("Reaper Minis") ||
         product.company === "Wizards of the Coast" && companyFilter.includes("Wizards of the Coast") ||
         product.company === "Hero Forge" && companyFilter.includes("Hero Forge") ||
         product.company === "Dwarven Forge" && companyFilter.includes("Dwarven Forge") ||
         product.company === "Miniature Market" && companyFilter.includes("Miniature Market")
-      )
+      
     ))
+}
+
+const filterSearchbar = (search, arr) => {
+  return arr.filter(
+    (product) => (
+        product.name.toLowerCase().includes(search.toLowerCase())
+      
+    )
+  )
 }
 
 const mapState = (state) => {

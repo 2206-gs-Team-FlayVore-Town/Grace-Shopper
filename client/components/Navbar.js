@@ -2,17 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 import { logout } from "../store";
-import AddToCart from "./AddToCart";
 import { Login, Signup } from "./AuthForm";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div>
       <div className="row">
-        <h1 className="store-name">Tavern Minis</h1>
-        <div className="search-bar">
-          <input className="search-bar" type="text" placeholder="Search.." />
-        </div>
+        <h1 className="store-name">Store Name</h1>
         <div>
           {isLoggedIn ? (
             <div>
@@ -39,18 +35,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           )}
         </div>
       </div>
-      <Route path="/home" element={
-            <div className="row">
-            <Link to="/all">All</Link>
-            <Link to="/characterMinis">Character Minis</Link>
-            <Link to="/creatureMinis">Creature Minis</Link>
-            <Link to="/accessories">Accessories</Link>
-            <Link to="/dice">Dice</Link>
-            <Link to="/artSupplies">Art Supplies</Link>
-          </div>
-        }>
-
-      </Route>
       <hr />
     </div>
   </nav>
