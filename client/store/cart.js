@@ -18,7 +18,7 @@ const CHANGE_PRODUCT_QUANTITY = "CHANGE_PRODUCT_QUANTITY"
 
 
 const getCart = (cart) => ({type: GET_CART, cart})
-const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
+const removeFromCart = (cart) => ({type: REMOVING_FROM_CART, cart})
 const changeProductQuantity = (cart) => ({type: CHANGE_PRODUCT_QUANTITY, cart})
 const addToCart = (cart) => ({type: ADD_TO_CART, cart})
 const checkout = () => ({type: CHECKOUT})
@@ -66,7 +66,7 @@ export const checkingOut = () => async dispatch => {
 export const removingFromCart = (product, user) => async dispatch => {
   let res = ''
   if(user) {
-    res = await axios.delete(`/api/cart/${product.id}`)
+    res = await axios.delete(`/api/cart/${product.id}/user/${user.id}`)
   } else {
     res = await axios.delete(`/api/cart/${product.id}`)
   }
@@ -102,7 +102,7 @@ export default function(state = initialState, action) {
     case CHECKOUT:
       return initialState;
     case REMOVING_FROM_CART:
-      return state.filter((product) => product.product.id !== action.product.productId)
+      return action.cart;
     case CHANGE_PRODUCT_QUANTITY:
       return action.cart
     default:

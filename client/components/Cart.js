@@ -72,7 +72,7 @@ const Cart = (props) => {
               name="quantity"
               min="1"
               max={product.stock}
-              defaultValue={orderproducts.quantity}
+              value={orderproducts.quantity}
             />
             <button
               type="button"
@@ -94,11 +94,10 @@ const Cart = (props) => {
           {Object.keys(newCart).length === 1 ? "item" : "items"}): $
           {newCart.total / 100}
         </h3>
-        <button> Proceed to Checkout</button>
         <Link to="/checkout" onClick={() => props.checkout()}>
           Proceed To Checkout
         </Link>
-        <div className="row">
+        <div className="all-product-page">
           {mappedObject ? mappedObject : "Nothing in Cart"}
         </div>
       </div>

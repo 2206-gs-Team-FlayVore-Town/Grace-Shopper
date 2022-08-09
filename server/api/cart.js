@@ -88,17 +88,36 @@ router.post("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id/user/:userid", async (req, res, next) => {
   try {
-    const deletedProduct = await OrderProducts.findAll({
-      where: {
-        productId: req.params.id,
-      },
-    });
-    for (let i = 0; i < deletedProduct.length; i++) {
-      deletedProduct[i].destroy();
-    }
-    res.send(deletedProduct[0]);
+      const ordersInCart = await Order.findAll({
+        where: {
+          userId: req.params.userid,
+          completed: false
+        },
+        include: {model: Product}
+      });
+
+      let id = parseInt(req.params.id)
+    
+      for(let i = 0; i < ordersInCart.length; i++){
+        let order = ordersInCart[i]
+        if(order.products.length === 0){
+         await order.destroy()
+        }
+        else if(order.products[0].id === id) {
+          await order.destroy()
+        }
+      }
+    
+      const cart = await Order.findAll({
+        where: {
+          userId: req.params.userid,
+          completed: false
+        },
+        include: {model: Product}
+      })
+    res.send(cart);
   } catch (err) {
     next(err);
   }
@@ -153,29 +172,4 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// try {
-//   const ordersInCart = await Order.findAll({
-//     where: {
-//       userId: req.params.id,
-//       completed: false
-//     },
-//     include: {model: Product}
-//   });
 
-//   for(let i = 0; i < ordersInCart.length; i++){
-//     let order = ordersInCart[i]
-//     if(order.products.length === 0){
-//      await order.destroy()
-//     }
-//     else if(order.products[0].id === req.body.product) {
-//       await order.destroy()
-//     }
-//   }
-
-//   const cart = await Order.findAll({
-//     where: {
-//       userId: req.params.id,
-//       completed: false
-//     },
-//     include: {model: Product}
-//   })
