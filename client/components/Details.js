@@ -23,14 +23,13 @@ class Details extends Component {
             <div className="header">
               <p>{company}</p>
               <h1>{name}</h1>
-              <h3>${price}</h3>
+              <h3>${(price * 0.01).toFixed(2)}</h3>
               <p>{specifications}</p>
               <p>Available Units: {stock}</p>
             </div>
-            <div className="rating">Rating: {rating}</div>
+            <div className="rating">Rating: {(rating * 0.1).toFixed(1)}/5</div>
             <div className="button-container">
               <AddToCart product={id} />
-              {/* <button className="choice-button">Add to Cart</button> */}
               <button className="wishlist">Add to Wishlist</button>
             </div>
           </div>

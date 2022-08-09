@@ -1,5 +1,5 @@
-body {
-  font-family: sans-serif;
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
@@ -262,8 +262,8 @@ form div {
   width: 80%;
 }
 
-
 .filter-row {
+  font-size: 12px;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -285,7 +285,7 @@ form div {
 }
 
 .all-product-view-thumbnail {
-  width: 90%;
+  width: 100%;
   margin: 3%;
 }
 
@@ -367,3 +367,4 @@ form div {
 #border9 {
   border-color: purple;
 }
+
