@@ -57,9 +57,10 @@ class ProductAdmin extends React.Component {
   }
   
   render () {
+    let color = this.props.index % 10
     if (this.state){
         return (
-          <div>
+          <div class="product" id={"border" + color}>
             <form onSubmit={this.handleEdit}>
                <label htmlFor='name'>Name:</label>
                <input type='text' name='name' value={this.state.name} onChange={this.handleChange}/>

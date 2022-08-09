@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.product-image {
+  height: 200px;
+  width: 200px;
+}
 .container {
   box-sizing: border-box;
 
@@ -307,6 +311,63 @@ form div {
   width: 15%;
 }
 
+#user {
+  width: 350px;
+  border: solid;
+  padding: 5px;
+  margin: 2px
+}
+
+.product{
+  border: solid;
+  padding: 5px;
+  margin: 2px
+}
+
 .spacer {
   width: 20%
+}
+
+.title {
+  text-align: center;
+}
+
+#border0 {
+  border-color: #C1CFDA;
+}
+
+#border1 {
+  border-color: #20A4F3;
+}
+
+#border2 {
+  border-color: #59F8E8;
+}
+
+#border3 {
+  border-color: #941C2F;
+}
+
+#border4 {
+  border-color: gold;
+}
+
+#border5 {
+  border-color: #103900;
+}
+
+#border6 {
+  border-color: orange;
+}
+
+#border7 {
+  border-color: #06BA63;
+}
+
+#border8 {
+  border-color: #8B94A3;
+}
+
+#border9 {
+  border-color: purple;
 }
