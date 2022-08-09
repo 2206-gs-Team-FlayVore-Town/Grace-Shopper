@@ -16,6 +16,7 @@ export class Home extends React.Component {
       sortByParam: "Rating (high to low)",
       sortedProducts: [],
       priceFilter: ['0,499','500,999','1000,1499','1500,2499','2500,4999','5000,100000000'],
+      companyFilter: ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
     };
   }
 
@@ -29,17 +30,21 @@ export class Home extends React.Component {
 
   handleFilterPrice = (priceFilter) => {
     this.setState({priceFilter: priceFilter});
-    console.log("handleFilterPrice:", priceFilter)
+  }
+
+  handleFilterCompany = (companyFilter) => {
+    this.setState({companyFilter: companyFilter})
   }
 
   render() {
     const { products } = this.props;
-    let { filter, sortByParam, sortedProducts, priceFilter } = this.state;
+    let { filter, sortByParam, sortedProducts, priceFilter, companyFilter } = this.state;
     sortedProducts = products.filter(
       (product) => product.category === filter || filter === "all"
     );
     sortedProducts = sortBy(sortByParam, sortedProducts);
     sortedProducts = filterPrice(priceFilter, sortedProducts);
+    sortedProducts = filterCompany(companyFilter, sortedProducts);
     const topItems = sortedProducts.slice(0, 4);
     const otherItems = sortedProducts.slice(5);
     return (
@@ -87,7 +92,7 @@ export class Home extends React.Component {
           <div className="spacer" />
         </div>
         <div className="row">
-          <FilterBar selectSortByParam={this.handleSortByParam} handleFilterPrice={this.handleFilterPrice}/>
+          <FilterBar selectSortByParam={this.handleSortByParam} handleFilterPrice={this.handleFilterPrice} handleFilterCompany={this.handleFilterCompany}/>
           <div className="products-array">
             <div className="top-row">
               {topItems.map((product) => {
@@ -111,7 +116,6 @@ export class Home extends React.Component {
 }
 
 const sortBy = (param, arr) => {
-  console.log("param in sortBy:", param)
   switch (param) {
     case "Price (low to high)":
       return arr.sort((a, b) => a.price - b.price);
@@ -137,7 +141,21 @@ const filterPrice = (priceFilter, arr) => {
        product.price > 4999 && priceFilter.includes('5000,100000000')
       )
     ))
-  
+}
+
+const filterCompany = (companyFilter, arr) => {
+  console.log(arr, companyFilter)
+  return arr.filter(
+    (product) => (
+      (
+        product.company === "Games Workshop" && companyFilter.includes("Games Workshop") ||
+        product.company === "Reaper Minis" && companyFilter.includes("Reaper Minis") ||
+        product.company === "Wizards of the Coast" && companyFilter.includes("Wizards of the Coast") ||
+        product.company === "Hero Forge" && companyFilter.includes("Hero Forge") ||
+        product.company === "Dwarven Forge" && companyFilter.includes("Dwarven Forge") ||
+        product.company === "Miniature Market" && companyFilter.includes("Miniature Market")
+      )
+    ))
 }
 
 const mapState = (state) => {

@@ -6,7 +6,7 @@ const Cart = props => {
     <ul>
         {props.cart.map((order, index) => {
         console.log(order)
-            return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice}</li>
+            return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice*.01}</li>
         })}
     </ul>
   )
