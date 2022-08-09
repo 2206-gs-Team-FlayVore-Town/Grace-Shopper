@@ -103,7 +103,7 @@ async function seed() {
   }
 
   let miscAccessories = ["dice bag", "DM screen", "game mat", "mini stand", "card sleeves", "dice tray", "dice tower", "battlemap" ]
-  let colors = ["red, orange, yellow, green, blue, violet, indigo, brown, black, white, grey, teal"]
+  let colors = ["red", "orange", "yellow", "green", "blue", "violet", "indigo", "brown", "black", "white", "gray", "teal"]
   for (let i = 0; i < 100; i++) {
     let rand1 = Math.floor(Math.random()*12);
     let rand2 = Math.floor(Math.random()*8);
@@ -153,7 +153,7 @@ async function seed() {
     let rand4 = Math.floor(Math.random()*25);
     let rand5 = Math.floor(Math.random()*50);
     const newDice = { 
-      name: `${colors[rand1]} ${miscDice[rand2]}`, 
+      name: `${colors[rand1]} ${miscArtSupplies[rand2]}`, 
       price: (rand1  + rand3 + rand4 + rand5) * 20,
       imgURL: "https://m.media-amazon.com/images/I/81dPYo1ijOS._AC_SL1500_.jpg",
       quantityPerItem: 1, 
