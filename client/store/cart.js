@@ -39,7 +39,7 @@ export const gettingCart = (user) => async dispatch => {
 export const addingToCart = (product,user,quantity) => async dispatch => {
     let res = ''
     if (user){
-      res = await axios.post(`/api/cart/${user}`, { //Create an order for that product attached to that user
+      res = await axios.post(`/api/cart/${user.id}`, { //Create an order for that product attached to that user
         product, quantity
       })
     }
@@ -61,11 +61,10 @@ export const checkingOut = () => async dispatch => {
     return dispatch(checkout())
   }
   
-export const removingFromCart = (product,user) => async dispatch => {
-  console.log(product)
+export const removingFromCart = (product, user) => async dispatch => {
   let res = ''
   if(user) {
-    res = await axios.delete(`/api/cart/${user}`, {product})
+    res = await axios.delete(`/api/cart/${product.id}`)
   } else {
     res = await axios.delete(`/api/cart/${product.id}`)
   }

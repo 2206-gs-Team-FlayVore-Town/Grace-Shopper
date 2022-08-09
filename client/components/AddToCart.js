@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {addingToCart} from '../store'
 
 const AddToCart = props => {
-  
+  console.log(props)
   const handleSubmit = () =>{
     let quantity = document.getElementById(`quantity${props.product}`).value
     props.addProduct(props.product, props.user, quantity) //assuming id of product and user being passed down
@@ -29,7 +29,7 @@ const AddToCart = props => {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.auth
   }
 }
 
