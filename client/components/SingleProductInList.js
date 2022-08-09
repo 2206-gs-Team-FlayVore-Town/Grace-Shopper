@@ -22,7 +22,9 @@ export const SingleProductInList = (props) => {
           </div>
         </div>
       </Link>
+
       <div style={{ fontSize: 10 }}> {product.specifications} </div>
+      <div style={{ fontSize: 10 }}> Company: {product.company} </div>
       <AddToCart product={product.id} />
     </div>
   );
