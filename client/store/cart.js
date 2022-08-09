@@ -16,11 +16,13 @@ const CHANGE_PRODUCT_QUANTITY = "CHANGE_PRODUCT_QUANTITY"
  * ACTION CREATORS
  */
 
+
 const getCart = (cart) => ({type: GET_CART, cart})
 const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
 const changeProductQuantity = (product) => ({type: CHANGE_PRODUCT_QUANTITY, product})
 const addToCart = (product) => ({type: ADD_TO_CART, product})
 const checkout = () => ({type: CHECKOUT})
+
 
 /**
  * THUNK CREATORS

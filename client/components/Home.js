@@ -13,10 +13,12 @@ export class Home extends React.Component {
     super(props);
     this.state = {
       filter: "all",
+
       sortByParam: "Rating (high to low)",
       sortedProducts: [],
       priceFilter: ['0,499','500,999','1000,1499','1500,2499','2500,4999','5000,100000000'],
       companyFilter: ["Games Workshop", "Reaper Minis", "Wizards of the Coast", "Hero Forge", "Dwarven Forge", "Miniature Market"]
+
     };
   }
 
@@ -34,6 +36,7 @@ export class Home extends React.Component {
 
   handleFilterCompany = (companyFilter) => {
     this.setState({companyFilter: companyFilter})
+
   }
 
   render() {
@@ -47,6 +50,7 @@ export class Home extends React.Component {
     sortedProducts = filterCompany(companyFilter, sortedProducts);
     const topItems = sortedProducts.slice(0, 4);
     const otherItems = sortedProducts.slice(5);
+
     return (
       <div>
         <div className="row">
