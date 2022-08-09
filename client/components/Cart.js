@@ -1,60 +1,79 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
-import {removingFromCart, changingProductQuantity, checkingOut } from "../store";
+import {
+  removingFromCart,
+  changingProductQuantity,
+  checkingOut,
+} from "../store";
 
 const Cart = (props) => {
   let { user, cart, deleteProduct, changeProductQuantity } = props;
-  console.log(user)
+
   function combinedCart(cart) {
     let newCart = {};
     newCart.total = 0;
     newCart.totalItems = 0;
-    
+
     for (let i = 0; i < cart.length; i++) {
-      let id = cart[i].product.id;
-      if (newCart.hasOwnProperty(id)) {
-        newCart[id].orderProduct.quantity = cart[i].orderProduct.quantity;
-        newCart[id].orderProduct.totalPrice =
-          newCart[id].orderProduct.quantity *
-          newCart[id].orderProduct.unitPrice;
-      } else {
-        newCart[id] = cart[i];
+      let product = cart[i].products[0];
+      let orderProduct;
+      let id;
+      if (product !== undefined) {
+        orderProduct = product.orderproducts;
+        id = product.id;
+        if (newCart.hasOwnProperty(id)) {
+          newCart[id].orderproducts.quantity = orderProduct.quantity;
+          newCart[id].orderproducts.totalPrice =
+            newCart[id].orderproducts.quantity *
+            newCart[id].orderproducts.unitPrice;
+        } else {
+          newCart[id] = product;
+        }
       }
     }
-  for (let key in newCart) {
-    if(key.length < 5){
-      newCart.total += newCart[key].orderProduct.totalPrice
-      newCart.totalItems += newCart[key].orderProduct.quantity
+
+    for (let key in newCart) {
+      if (key.length < 5) {
+        newCart.total += newCart[key].orderproducts.totalPrice;
+        newCart.totalItems += newCart[key].orderproducts.quantity;
+      }
     }
-  }
     return newCart;
   }
+  let newCart;
 
-  let newCart = combinedCart(cart);
-  let mappedObject;
-  
-  const handleChange = (product) => {
-    let quantity = event.target.value
-    changeProductQuantity(product, quantity, user) //assuming id of product and user being passed down
+  if (cart) {
+    newCart = combinedCart(cart);
   }
+
+  let mappedObject;
+
+  const handleChange = (product) => {
+    let quantity = event.target.value;
+    changeProductQuantity(product, quantity, user); //assuming id of product and user being passed down
+  };
 
   if (newCart.total > 0) {
     mappedObject = Object.keys(newCart).map(function (key, index) {
-      let { product, orderProduct } = newCart[key] 
+      let product = newCart[key];
+      let { orderproducts } = product;
       if (key.length < 5)
         return (
           <div className="column" key={index}>
-            <img
-              className="product-image"
-              src={product.imgURL}
-            />
+            <img className="product-image" src={product.imgURL} />
             <h4>Product Name: {product.name}</h4>
-            <h4>
-              Price Per Unit: ${orderProduct.unitPrice / 100}
-            </h4>
-              <label htmlFor="quantity">Quantity:</label>
-              <input onChange={() => handleChange(product)} type="number" id={`quantity${product}`} name="quantity" min="1" max={product.stock} defaultValue={orderProduct.quantity} />
+            <h4>Price Per Unit: ${orderproducts.unitPrice / 100}</h4>
+            <label htmlFor="quantity">Quantity:</label>
+            <input
+              onChange={() => handleChange(product)}
+              type="number"
+              id={`quantity${product}`}
+              name="quantity"
+              min="1"
+              max={product.stock}
+              value={orderproducts.quantity}
+            />
             <button
               type="button"
               className="Delete-Product"
@@ -66,7 +85,7 @@ const Cart = (props) => {
         );
     });
   }
-  
+
   return (
     <ul>
       <div>
@@ -75,9 +94,10 @@ const Cart = (props) => {
           {Object.keys(newCart).length === 1 ? "item" : "items"}): $
           {newCart.total / 100}
         </h3>
-        <button> Proceed to Checkout</button>
-        <Link to="/checkout" onClick={() => props.checkout()}>Proceed To Checkout</Link>
-        <div className="row">
+        <Link to="/checkout" onClick={() => props.checkout()}>
+          Proceed To Checkout
+        </Link>
+        <div className="all-product-page">
           {mappedObject ? mappedObject : "Nothing in Cart"}
         </div>
       </div>
@@ -89,15 +109,16 @@ const mapState = (state) => {
   return {
     cart: state.cart,
     user: state.auth,
-  }
-}
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     checkout: () => dispatch(checkingOut()),
-    changeProductQuantity: (product,productQuantity, user) => dispatch(changingProductQuantity(product,productQuantity,user)),
-    deleteProduct: (product,user) => dispatch(removingFromCart(product, user))
-  }
-}
+    changeProductQuantity: (product, productQuantity, user) =>
+      dispatch(changingProductQuantity(product, productQuantity, user)),
+    deleteProduct: (product, user) => dispatch(removingFromCart(product, user)),
+  };
+};
 
 export default connect(mapState, mapDispatch)(Cart);
