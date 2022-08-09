@@ -19,8 +19,8 @@ const CHANGE_PRODUCT_QUANTITY = "CHANGE_PRODUCT_QUANTITY"
 
 const getCart = (cart) => ({type: GET_CART, cart})
 const removeFromCart = (product) => ({type: REMOVING_FROM_CART, product})
-const changeProductQuantity = (product) => ({type: CHANGE_PRODUCT_QUANTITY, product})
-const addToCart = (product) => ({type: ADD_TO_CART, product})
+const changeProductQuantity = (cart) => ({type: CHANGE_PRODUCT_QUANTITY, cart})
+const addToCart = (cart) => ({type: ADD_TO_CART, cart})
 const checkout = () => ({type: CHECKOUT})
 
 
@@ -74,11 +74,15 @@ export const removingFromCart = (product, user) => async dispatch => {
 }
 
 export const changingProductQuantity = (product,productQuantity,user) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN);
+
   let res = ''
   if(user) {
-    res = await axios.put(`/api/cart/${user.id}`, {product,productQuantity}) //needs to be adjusted
+    res = await axios.put(`/api/cart/${product.id}`, { productQuantity, headers: {
+      authorization: token,
+  }}) //needs to be adjusted
   } else {
-    res = await axios.put(`/api/cart/${product.id}`, {product, productQuantity})
+    res = {data: productQuantity}
   }
   return dispatch(changeProductQuantity(res.data))
 }
@@ -90,22 +94,20 @@ export const changingProductQuantity = (product,productQuantity,user) => async d
 const initialState = [] 
  
 export default function(state = initialState, action) {
-  let cart = state.slice()
   switch (action.type) {
     case GET_CART:
       return action.cart;
     case ADD_TO_CART:
-      cart.push(action.product)
-      return cart //added to the what is already in the cart
+      return action.cart;
     case CHECKOUT:
       return initialState;
     case REMOVING_FROM_CART:
-      console.log(state[0].product.id)
       return state.filter((product) => product.product.id !== action.product.productId)
     case CHANGE_PRODUCT_QUANTITY:
-      cart.push(action.product)
-      return cart
+      return action.cart
     default:
       return state;
   }
 }
+
+
