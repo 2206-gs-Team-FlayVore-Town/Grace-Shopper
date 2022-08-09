@@ -57,13 +57,17 @@ export class Home extends React.Component {
     const otherItems = sortedProducts.slice(5);
 
     return (
-      <div>
+        <div className="row">
+          <FilterBar selectSortByParam={this.handleSortByParam} handleFilterPrice={this.handleFilterPrice} handleFilterCompany={this.handleFilterCompany}/>
+          <div className="products-array">
+                  <div>
                 
         <div className="row">
           <div className="spacer" />
           <div className="search-bar">
           <input className="search-bar" type="text" onChange={(evt)=>{this.handleSearchbar(evt.target.value)}} placeholder="Search.." />
         </div>
+        <div className="spacer" />
           <div className="row">
             <Link
               onClick={() => this.setState({ filter: "all" })}
@@ -98,9 +102,6 @@ export class Home extends React.Component {
           </div>{" "}
           <div className="spacer" />
         </div>
-        <div className="row">
-          <FilterBar selectSortByParam={this.handleSortByParam} handleFilterPrice={this.handleFilterPrice} handleFilterCompany={this.handleFilterCompany}/>
-          <div className="products-array">
             <div className="top-row">
               {topItems.map((product) => {
                 return (
