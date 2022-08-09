@@ -102,6 +102,71 @@ async function seed() {
     products.push(newMini);
   }
 
+  let miscAccessories = ["dice bag", "DM screen", "game mat", "mini stand", "card sleeves", "dice tray", "dice tower", "battlemap" ]
+  let colors = ["red, orange, yellow, green, blue, violet, indigo, brown, black, white, grey, teal"]
+  for (let i = 0; i < 100; i++) {
+    let rand1 = Math.floor(Math.random()*12);
+    let rand2 = Math.floor(Math.random()*8);
+    let rand3 = Math.floor(Math.random()*6);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    const newAccessory = { 
+      name: `${colors[rand1]} ${miscAccessories[rand2]}`, 
+      price: (rand1  + rand3 + rand4 + rand5) * 20,
+      imgURL: "https://m.media-amazon.com/images/I/91kOoCpJCkL._AC_UL320_.jpg",
+      quantityPerItem: 1, 
+      specifications: `This is a ${colors[rand1]} ${miscAccessories[rand2]} made by ${company[rand3]}. Neat!`, 
+      rating: rand5,
+      company: company[rand3],
+      stock: rand1 + rand3,
+      category: "accessories"
+    }
+    products.push(newAccessory)
+  }
+
+  let miscDice = ["set of 64 micro d6", "set of 36 mini d6", "set of polyhedral dice", "d20", "giant d20" ]
+  for (let i = 0; i < 100; i++) {
+    let rand1 = Math.floor(Math.random()*12);
+    let rand2 = Math.floor(Math.random()*5);
+    let rand3 = Math.floor(Math.random()*6);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    const newDice = { 
+      name: `${colors[rand1]} ${miscDice[rand2]}`, 
+      price: (rand1  + rand3 + rand4 + rand5) * 20,
+      imgURL: "https://m.media-amazon.com/images/I/71FsCiR8-1L._AC_SX679_.jpg",
+      quantityPerItem: 1, 
+      specifications: `This is a ${colors[rand1]} ${miscDice[rand2]} made by ${company[rand3]}. Neat!`, 
+      rating: rand5,
+      company: company[rand3],
+      stock: rand1 + rand3,
+      category: "dice"
+    }
+    products.push(newDice)
+  }
+
+  let miscArtSupplies = ["Acrylic Paint - 2 oz", "Acrylic Paint - 4oz", "Miniature Paint - 2oz", "Spray Paint", "Miniature Paint - 4oz" ]
+  for (let i = 0; i < 100; i++) {
+    let rand1 = Math.floor(Math.random()*12);
+    let rand2 = Math.floor(Math.random()*5);
+    let rand3 = Math.floor(Math.random()*6);
+    let rand4 = Math.floor(Math.random()*25);
+    let rand5 = Math.floor(Math.random()*50);
+    const newDice = { 
+      name: `${colors[rand1]} ${miscDice[rand2]}`, 
+      price: (rand1  + rand3 + rand4 + rand5) * 20,
+      imgURL: "https://m.media-amazon.com/images/I/81dPYo1ijOS._AC_SL1500_.jpg",
+      quantityPerItem: 1, 
+      specifications: `This is a ${colors[rand1]} ${miscDice[rand2]} made by ${company[rand3]}. Neat!`, 
+      rating: rand5,
+      company: company[rand3],
+      stock: rand1 + rand3,
+      category: "artSupplies"
+    }
+    products.push(newDice)
+  }
+
+
   const orders = [];
   for (let i = 0; i < 500; i++) {
     const rand = Math.floor(Math.random()*5)
