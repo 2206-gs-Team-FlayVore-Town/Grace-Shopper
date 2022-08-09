@@ -237,6 +237,13 @@ form div {
   justify-content: space-between;
 }
 
+.title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
 .filter-row {
   display: flex;
   flex-direction: row;
@@ -272,7 +279,15 @@ form div {
 }
 
 .store-name {
-  margin: 1em;
+  font-size: 40px;
+  font-family: cursive;
+  font-style: bold;
+  margin: 10px;
+}
+.sub-name {
+  font-size: 20px;
+  font-family: cursive;
+  margin: 10px;
 }
 
 .filter-bar {
@@ -322,10 +337,6 @@ form div {
 
 .spacer {
   width: 20%
-}
-
-.title {
-  text-align: center;
 }
 
 #border0 {

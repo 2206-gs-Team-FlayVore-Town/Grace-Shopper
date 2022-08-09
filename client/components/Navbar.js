@@ -8,10 +8,11 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <nav>
     <div>
       <div className="row">
-        <h1 className="store-name">Store Name</h1>
+        <div></div>
+        <div className="title"><h1 className="store-name">Tavern Minis</h1> <h3 className="sub-name"> Accessories, Art Supplies, and More</h3></div>
         <div>
           {isLoggedIn ? (
-            <div>
+            <div className="row">
               {/* The navbar will show these links after you log in */}
               {isAdmin ? (
                 <div><Link to="/users">Users</Link><Link to="/products">Products</Link></div>) : (<span></span>)
