@@ -5,7 +5,7 @@ import {removingFromCart, changingProductQuantity, checkingOut } from "../store"
 
 const Cart = (props) => {
   let { user, cart, deleteProduct, changeProductQuantity } = props;
-  
+  console.log(user)
   function combinedCart(cart) {
     let newCart = {};
     newCart.total = 0;
@@ -47,7 +47,7 @@ const Cart = (props) => {
           <div className="column" key={index}>
             <img
               className="product-image"
-              src="https://i.ebayimg.com/images/g/jEsAAOSwjoZfTr8e/s-l500.jpg"
+              src={product.imgURL}
             />
             <h4>Product Name: {product.name}</h4>
             <h4>
@@ -88,7 +88,7 @@ const Cart = (props) => {
 const mapState = (state) => {
   return {
     cart: state.cart,
-    user: state.user,
+    user: state.auth,
   }
 }
 
