@@ -14,7 +14,6 @@ import Checkout from "./components/Checkout"
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
-    this.props.cartLoader(this.props.auth);
   }
 
   render() {
@@ -22,6 +21,9 @@ class Routes extends Component {
       this.props.usersLoader()
     }
     const { isLoggedIn, isAdmin } = this.props;
+    if(isLoggedIn){
+      this.props.cartLoader(this.props.user);
+    }
 
     return (
       <div>
@@ -69,7 +71,8 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
-    isAdmin: state.auth.admin
+    isAdmin: state.auth.admin,
+    user: state.auth,
   };
 };
 
