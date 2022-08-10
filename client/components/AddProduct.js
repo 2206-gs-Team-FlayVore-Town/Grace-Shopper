@@ -33,7 +33,6 @@ class AddProduct extends React.Component {
         }
       }
       this.props.add(product)
-      this.props.refresh()
       this.setState({
         name: '',
           price: '',
@@ -43,6 +42,7 @@ class AddProduct extends React.Component {
           company: '',
           stock: ''
       })
+      this.props.refresh()
     }
   }
   
