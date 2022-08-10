@@ -8,6 +8,7 @@ import AddToCart from "./AddToCart";
  */
 export const SingleProductInList = (props) => {
   const { product } = props;
+  let clickCooldown = false;
   return (
     <div className="column">
       <Link to={`/products/${product.id}`}>
@@ -20,18 +21,15 @@ export const SingleProductInList = (props) => {
             .join(" ")}
         </div>
         <div className="row">
-          <div style={{ fontSize: 12 }}>
+          <div className="product-spec">
             ${(product.price * 0.01).toFixed(2)}
           </div>
-          <div style={{ fontSize: 12 }}>
+          <div className="product-spec">
             {(product.rating * 0.1).toFixed(1)} / 5
           </div>
         </div>
       </Link>
-
-      <div style={{ fontSize: 12 }}> {product.specifications} </div>
-      <div style={{ fontSize: 12 }}> Company: {product.company} </div>
-      <AddToCart product={product.id} />
+      <AddToCart product={product.id}/>
     </div>
   );
 };

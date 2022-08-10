@@ -11,7 +11,7 @@ const AddToCart = (props) => {
 
   return (
     <div>
-      <select id={`quantity${props.product}`}>
+      <select className="buy-count" id={`quantity${props.product}`}>
         <option type="number" value="1">1</option>
         <option type="number" value="2">2</option>
         <option value="3">3</option>
@@ -22,7 +22,7 @@ const AddToCart = (props) => {
         <option value="8">8</option>
         <option value="9">9</option>
       </select>
-      <button onClick={() => handleSubmit()}>AddToCart</button>
+      <button className="buy-button" onClick={() => handleSubmit()}>ADD TO CART</button>
     </div>
   );
 };
