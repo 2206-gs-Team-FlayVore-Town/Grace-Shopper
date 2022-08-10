@@ -7,7 +7,11 @@ module.exports = router;
 router.get("/:id", async (req, res, next) => {
   try {
     const cart = await Order.findAll({
-      where: { userId: req.params.id, completed: false },
+      where: {
+        userId: req.params.id,
+        completed: false,
+      },
+      include: { model: Product },
     });
     res.send(cart);
   } catch (err) {
@@ -17,14 +21,16 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/checkout", async (req, res, next) => {
   try {
-    if (req.headers.authorization){
-      const user = await User.findByToken(req.headers.authorization)
-      await Order.update({
-        completed: true
-      },
-      {
-        where: { userId: user.id},
-      });
+    if (req.headers.authorization) {
+      const user = await User.findByToken(req.headers.authorization);
+      await Order.update(
+        {
+          completed: true,
+        },
+        {
+          where: { userId: user.id },
+        }
+      );
     }
     res.sendStatus(200);
   } catch (err) {
@@ -34,41 +40,84 @@ router.put("/checkout", async (req, res, next) => {
 
 router.post("/:id", async (req, res, next) => {
   try {
-    const productInCart = await OrderProducts.findByPk(req.body.product)
-    if(productInCart) {
-      req.body.quantity = parseInt(req.body.quantity) + productInCart.quantity
-      productInCart.destroy()
+    const ordersInCart = await Order.findAll({
+      where: {
+        userId: req.params.id,
+        completed: false,
+      },
+      include: { model: Product },
+    });
+
+    let { quantity } = req.body;
+
+    for (let i = 0; i < ordersInCart.length; i++) {
+      let order = ordersInCart[i];
+      if (order.products.length === 0) {
+        await order.destroy();
+      } else if (order.products[0].id === req.body.product) {
+        quantity =
+          parseInt(quantity) + order.products[0].orderproducts.quantity;
+        await order.destroy();
+      }
     }
+
     const product = await Product.findByPk(req.body.product);
     const order = await Order.create();
-    if (req.param.id > -1) {
-      const user = await User.findByPk(req.params.id);
-      order.setUser(user);
-    }
-    const orderProduct = await order.addProduct(product, {
+    const user = await User.findByPk(req.params.id);
+    order.setUser(user);
+
+    await order.addProduct(product, {
       through: {
-        quantity: req.body.quantity,
+        quantity: quantity,
         unitPrice: product.price,
-        totalPrice: req.body.quantity * product.price,
+        totalPrice: quantity * product.price,
       },
     });
-    res.send({ product, orderProduct: orderProduct[0] });
+
+    const cart = await Order.findAll({
+      where: {
+        userId: req.params.id,
+        completed: false,
+      },
+      include: { model: Product },
+    });
+
+    res.send(cart);
   } catch (err) {
     next(err);
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id/user/:userid", async (req, res, next) => {
   try {
-    const deletedProduct = await OrderProducts.findAll({
-      where: {
-        productId: req.params.id,
-      },
-    });
-    for (let i = 0; i < deletedProduct.length; i++) {
-      deletedProduct[i].destroy();
-    }
-    res.send(deletedProduct[0]);
+      const ordersInCart = await Order.findAll({
+        where: {
+          userId: req.params.userid,
+          completed: false
+        },
+        include: {model: Product}
+      });
+
+      let id = parseInt(req.params.id)
+    
+      for(let i = 0; i < ordersInCart.length; i++){
+        let order = ordersInCart[i]
+        if(order.products.length === 0){
+         await order.destroy()
+        }
+        else if(order.products[0].id === id) {
+          await order.destroy()
+        }
+      }
+    
+      const cart = await Order.findAll({
+        where: {
+          userId: req.params.userid,
+          completed: false
+        },
+        include: {model: Product}
+      })
+    res.send(cart);
   } catch (err) {
     next(err);
   }
@@ -76,29 +125,50 @@ router.delete("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const updatedProduct = await OrderProducts.findAll({
-      where: {
-        productId: req.params.id,
-      },
-    });
+    const user = await User.findByToken(req.body.headers.authorization);
 
-    for (let i = 0; i < updatedProduct.length; i++) {
-      updatedProduct[i].destroy();
+    const ordersInCart = await Order.findAll({
+      where: {
+        userId: user.id,
+        completed: false,
+      },
+      include: { model: Product },
+    });
+    let id = parseInt(req.params.id)
+
+    for (let i = 0; i < ordersInCart.length; i++) {   
+      let order = ordersInCart[i];
+      if (order.products.length === 0) {
+        await order.destroy();
+      } else if (order.products[0].id === id) {
+        await order.destroy();
+      }
     }
 
     const { productQuantity } = req.body;
 
-    const product = await Product.findByPk(req.body.product.id);
+    const product = await Product.findByPk(req.params.id);
     const order = await Order.create();
-    const orderProduct = await order.addProduct(product, {
+    order.setUser(user);
+    await order.addProduct(product, {
       through: {
         quantity: productQuantity,
         unitPrice: product.price,
         totalPrice: productQuantity * product.price,
       },
     });
-    res.send({ product, orderProduct: orderProduct[0] });
+
+    const cart = await Order.findAll({
+      where: {
+        userId: user.id,
+        completed: false,
+      },
+      include: { model: Product },
+    });
+
+    res.send(cart);
   } catch (err) {
     next(err);
   }
 });
+

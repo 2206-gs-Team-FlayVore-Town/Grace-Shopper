@@ -1,125 +1,22 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Route, Link } from "react-router-dom";
-import {
-  removingFromCart,
-  changingProductQuantity,
-  checkingOut,
-} from "../store";
+import React from 'react'
+import {connect} from 'react-redux'
 
-const Cart = (props) => {
-  let { user, cart, deleteProduct, changeProductQuantity } = props;
-  console.log(user);
-  function combinedCart(cart) {
-    let newCart = {};
-    newCart.total = 0;
-    newCart.totalItems = 0;
-
-    for (let i = 0; i < cart.length; i++) {
-      let id = cart[i].product.id;
-      if (newCart.hasOwnProperty(id)) {
-        newCart[id].orderProduct.quantity = cart[i].orderProduct.quantity;
-        newCart[id].orderProduct.totalPrice =
-          newCart[id].orderProduct.quantity *
-          newCart[id].orderProduct.unitPrice;
-      } else {
-        newCart[id] = cart[i];
-      }
-    }
-    for (let key in newCart) {
-      if (key.length < 5) {
-        newCart.total += newCart[key].orderProduct.totalPrice;
-        newCart.totalItems += newCart[key].orderProduct.quantity;
-      }
-    }
-    return newCart;
-  }
-
-  let newCart = combinedCart(cart);
-  let mappedObject;
-
-  const handleChange = (product) => {
-    let quantity = event.target.value;
-    changeProductQuantity(product, quantity, user); //assuming id of product and user being passed down
-  };
-
-  if (newCart.total > 0) {
-    mappedObject = Object.keys(newCart).map(function (key, index) {
-      let { product, orderProduct } = newCart[key];
-      if (key.length < 5)
-        return (
-          <div className="column" key={index}>
-            <img className="product-image" src={product.imgURL} />
-            <h4 className="product-title">
-              {product.name
-                .toLowerCase()
-                .split(" ")
-                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(" ")}
-            </h4>
-            <h4>Price Per Unit: ${orderProduct.unitPrice / 100}</h4>
-            <div className="row">
-              <div className="compact-row">
-                <label htmlFor="quantity">Quantity:</label>
-                <input
-                  onChange={() => handleChange(product)}
-                  type="number"
-                  id={`quantity${product}`}
-                  name="quantity"
-                  min="1"
-                  max={product.stock}
-                  defaultValue={orderProduct.quantity}
-                />
-              </div>
-              <div className="compact-row">
-                <button
-                  type="button"
-                  className="buy-button"
-                  onClick={() => deleteProduct(product, user)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-    });
-  }
-
+const Cart = props => {
   return (
     <ul>
-      <div>
-        <h3>
-          Cart Subtotal ({newCart.totalItems}{" "}
-          {Object.keys(newCart).length === 1 ? "item" : "items"}): $
-          {newCart.total / 100}
-        </h3>
-        
-        <Link to="/checkout" onClick={() => props.checkout()}>
-        <button> Proceed to Checkout</button>
-        </Link>
-        <div className="cart-row">
-          {mappedObject ? mappedObject : "Nothing in Cart"}
-        </div>
-      </div>
+        {props.cart.map((order, index) => {
+        console.log(order)
+            return <li key = {index}>{order.product.name} x{order.orderProduct.quantity}    Total:{order.orderProduct.totalPrice}</li>
+        })}
     </ul>
-  );
-};
+  )
+}
 
-const mapState = (state) => {
+const mapState = state => {
   return {
-    cart: state.cart,
-    user: state.auth,
-  };
-};
+    cart: state.cart
+  }
+}
 
-const mapDispatch = (dispatch) => {
-  return {
-    checkout: () => dispatch(checkingOut()),
-    changeProductQuantity: (product, productQuantity, user) =>
-      dispatch(changingProductQuantity(product, productQuantity, user)),
-    deleteProduct: (product, user) => dispatch(removingFromCart(product, user)),
-  };
-};
 
-export default connect(mapState, mapDispatch)(Cart);
+export default connect(mapState)(Cart)
