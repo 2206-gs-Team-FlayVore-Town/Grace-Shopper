@@ -1,6 +1,6 @@
 # Tavern Minis
 
-A online store for purchasing character minis, monster minis, paints, dice and various accessories
+An online store for purchasing character minis, monster minis, paints, dice and various accessories
 
 You can set up your own version of the site by:
 
