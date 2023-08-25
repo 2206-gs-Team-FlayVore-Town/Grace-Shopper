@@ -1,7 +1,7 @@
 {
   "name": "tavern_minis",
   "version": "2.0.0",
-  "homepage": "https://DavidMBurke.github.io/Tavern-Minis",
+  "homepage": "https://Tavern-Minis.github.io/Tavern-Minis",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
